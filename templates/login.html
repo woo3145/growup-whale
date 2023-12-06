@@ -87,14 +87,12 @@
                     // 쿠키에 토큰 저장
 >>>>>>> fix loginService app.py
                     document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+                    
         
                     // 이후 원하는 작업 수행 (예: 페이지 리디렉션)
                     
                     alert('로그인 되었습니다. 메인 페이지로 이동합니다.');
-<<<<<<< refs/remotes/upstream/main
-                    
-=======
->>>>>>> fix loginService app.py
+                    window.location.href = '/main.html';
                    
                 })
                 .catch((error) => {
