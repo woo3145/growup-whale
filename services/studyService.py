@@ -15,7 +15,6 @@ def get_time() :
     time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
     return time
 
-
 # 시작 시간
 start_time_str = get_time()
 start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
@@ -28,6 +27,7 @@ end_time = datetime.strptime(end_time_str, "%Y-%m-%d %H:%M:%S")
 # 공부한 시간 & 분단위 표현
 study_time = end_time - start_time
 minute = study_time.seconds // 60
+
 
 
 
@@ -50,7 +50,7 @@ def studyStart(db) :
     else : 
         print("시작 시간이 채워져있습니다. 해당 공부를 종료하고, 다른 공부를 진행?")
         # 
-    
+
 
 # 공부 종료
 def studyEnd(db) :
