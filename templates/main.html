@@ -1,3 +1,5 @@
+{% from 'components/whaleCard.html' import whaleCard %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,15 +21,18 @@
     />
   </head>
 
-  <body data-bs-theme="dark">
+  <body data-bs-theme="dark" >
     {% extends "layout.html" %} 
     {% block title %}메인 페이지{% endblock %} 
     {%block head %} 
       {{ super() }}
      {% endblock %} 
     {% block content %}
-    <h3>메인 페이지</h3>
-    <p>안녕하세요. 내 사이트에 오신것을 환영 합니다.!!!!!</p>
+    <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+      {{ whaleCard() }}
+
+    </div>
+
     {% endblock %}
 
     <script
