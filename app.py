@@ -48,12 +48,12 @@ class User(db.Model):
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.Time, nullable=True)
 
-    # whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
-    # whale = db.relationship("Whale",  back_populates="user")
+    whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
+    whale = db.relationship("Whale",  back_populates="user")
 
-    # study_type_level_id = db.Column(
-    #     Integer, db.ForeignKey("studytypelevel.id"))
-    # study_type_level = db.relationship("Studytypelevel", back_populates="user")
+    study_type_level_id = db.Column(
+        Integer, db.ForeignKey("studytypelevel.id"))
+    study_type_level = db.relationship("Studytypelevel", back_populates="user")
 
 
 class Whale(db.Model):
@@ -62,7 +62,7 @@ class Whale(db.Model):
     job = db.Column(db.String(100), nullable=True)
     exp = db.Column(db.Integer, nullable=True)
 
-    # user = db.relationship("User", back_populates="whale", uselist=False)
+    user = db.relationship("User", back_populates="whale", uselist=False)
 
 
 class Studytypelevel(db.Model):
@@ -133,7 +133,6 @@ def register():
         res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
        
         return make_response(res)
-
 
 @app.route("/studyStart")
 def studyStart():
