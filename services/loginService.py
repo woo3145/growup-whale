@@ -2,10 +2,7 @@ from flask_bcrypt import check_password_hash, generate_password_hash, Bcrypt
 from flask_jwt_extended import create_access_token
 bcrypt = Bcrypt()
 
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 def login(db, user_class, email, password):
     # User 클래스를 사용하여 로그인 로직 구현
     user = db.session.query(user_class).filter_by(email=email).first()
