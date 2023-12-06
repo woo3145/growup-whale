@@ -46,7 +46,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
-    starttime = db.Column(db.String(10000), nullable=False)
+    starttime = db.Column(db.Time, nullable=True)
 
     whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
     whale = db.relationship("Whale",  back_populates="user")
@@ -58,22 +58,22 @@ class User(db.Model):
 
 class Whale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level = db.Column(db.String(100), nullable=False)
-    job = db.Column(db.String(100), nullable=False)
-    exp = db.Column(db.String(100), nullable=False)
+    level = db.Column(db.Integer, nullable=False)
+    job = db.Column(db.String(100), nullable=True)
+    exp = db.Column(db.Integer, nullable=True)
 
     user = db.relationship("User", back_populates="whale", uselist=False)
 
 
 class Studytypelevel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    blog_lv = db.Column(db.String(100), nullable=False)
-    argorithm_lv = db.Column(db.String(100), nullable=False)
-    main_lv = db.Column(db.String(100), nullable=False)
-    cs_lv = db.Column(db.String(100), nullable=False)
+    blog_lv = db.Column(db.Integer, nullable=True)
+    argorithm_lv = db.Column(db.Integer, nullable=True)
+    main_lv = db.Column(db.Integer, nullable=True)
+    cs_lv = db.Column(db.Integer, nullable=True)
 
     user = db.relationship(
-        "User", back_populates="studytypelevel", uselist=False)
+        "User", back_populates="study_type_level", uselist=False)
 
 
 with app.app_context():
@@ -116,18 +116,23 @@ def login():
         return jsonify(message='Method not allowed'), 405
 
 
-@app.route("/register")
+@app.route("/register", methods=['POST', 'GET'])
 def register():
-    nickname = request.args.get('nickname')
-    email = request.args.get('email')
-    password = request.args.get('pw')
-    password_check = request.args.get('pw_check')
+    if request.method == 'GET':
+        return render_template('register.html')  # 리디렉션 대신 템플릿을 렌더링
+    
+    elif request.method == 'POST':
+        data = request.get_json(silent=True)
+        nickname = data.get('nickname')
+        email = data.get('email')
+        password = data.get('pw')
+        password_check = data.get('pw_check')
 
-    # pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        # pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-    registerService.register(User, db, email, password,
-                             nickname, password_check)
-    return render_template('register.html')
+        res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
+       
+        return make_response(res)
 
 
 if __name__ == "__main__":
