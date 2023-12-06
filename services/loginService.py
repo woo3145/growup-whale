@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
+=======
+>>>>>>> main
 from flask_bcrypt import check_password_hash, generate_password_hash, Bcrypt
 from flask_jwt_extended import create_access_token
 bcrypt = Bcrypt()
@@ -15,6 +18,7 @@ def login(db, user_class, email, password):
         return {'success': True, 'access_token': access_token}
     else:
         return {'success': False, 'message': 'Invalid email or password'}
+<<<<<<< HEAD
 =======
 from flask import Flask, jsonify, request, SQLAlchemy
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity, Bcrypt
@@ -63,3 +67,5 @@ if __name__ == '__main__':
 =======
         return {'success': False, 'message': 'Invalid email or password'}
 >>>>>>> fix loginService app.py
+=======
+>>>>>>> main

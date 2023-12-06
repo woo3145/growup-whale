@@ -30,10 +30,13 @@
           </form>
       
           <script>
+<<<<<<< HEAD
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
 =======
 >>>>>>> fix loginService app.py
+=======
+>>>>>>> main
             function submitForm() {
                 var email = document.getElementById("email").value;
                 var password = document.getElementById("password").value;
@@ -60,8 +63,11 @@
                     body: JSON.stringify(data)
                 })
                 .then(response => {
+<<<<<<< HEAD
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
+=======
+>>>>>>> main
                     return response.json();
                 })
                 .then(data => {
@@ -71,6 +77,7 @@
                     // 서버에서의 응답을 처리합니다.
                     console.log('Success:', data);
                     
+<<<<<<< HEAD
 =======
                   print(response)
                     if (!response.ok) {
@@ -102,6 +109,9 @@
 =======
                     document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
 >>>>>>> fix login function
+=======
+                    document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+>>>>>>> main
         
                     // 이후 원하는 작업 수행 (예: 페이지 리디렉션)
                     
@@ -116,6 +126,7 @@
                 });
             }
         </script>
+<<<<<<< HEAD
 <<<<<<< refs/remotes/upstream/main
 =======
               function submitForm() {
@@ -163,6 +174,8 @@
 >>>>>>> feat add login.html
 =======
 >>>>>>> fix loginService app.py
+=======
+>>>>>>> main
       </body>
 
     <script
