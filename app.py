@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService
+from services import loginService, registerService, studyService
 
 app = Flask(__name__)
 
@@ -48,32 +48,32 @@ class User(db.Model):
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.String(10000), nullable=False)
 
-    whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
-    whale = db.relationship("Whale",  back_populates="user")
+    # whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
+    # whale = db.relationship("Whale",  back_populates="user")
 
-    study_type_level_id = db.Column(
-        Integer, db.ForeignKey("studytypelevel.id"))
-    study_type_level = db.relationship("Studytypelevel", back_populates="user")
+    # study_type_level_id = db.Column(
+    #     Integer, db.ForeignKey("studytypelevel.id"))
+    # study_type_level = db.relationship("Studytypelevel", back_populates="user")
 
 
 class Whale(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.ForeignKey('user.id'), primary_key=True)
     level = db.Column(db.String(100), nullable=False)
     job = db.Column(db.String(100), nullable=False)
     exp = db.Column(db.String(100), nullable=False)
 
-    user = db.relationship("User", back_populates="whale", uselist=False)
+    # user = db.relationship("User", back_populates="whale", uselist=False)
 
 
 class Studytypelevel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.ForeignKey('user.id'), primary_key=True)
     blog_lv = db.Column(db.String(100), nullable=False)
     argorithm_lv = db.Column(db.String(100), nullable=False)
     main_lv = db.Column(db.String(100), nullable=False)
     cs_lv = db.Column(db.String(100), nullable=False)
 
-    user = db.relationship(
-        "User", back_populates="studytypelevel", uselist=False)
+    # user = db.relationship(
+    #     "User", back_populates="studytypelevel", uselist=False)
 
 
 with app.app_context():
@@ -118,24 +118,27 @@ def login():
 
 @app.route("/register")
 def register():
-    nickname = request.args.get('nickname')
-    email = request.args.get('email')
-    password = request.args.get('pw')
-    password_check = request.args.get('pw_check')
 
+    # if request.method == 'GET':
+    return render_template('register.html')  # 리디렉션 대신 템플릿을 렌더링
+    # elif request.method == 'POST':
+    #     nickname = request.args.get('nickname')
+    #     email = request.args.get('email')
+    #     password = request.args.get('pw')
+    #     password_check = request.args.get('pw_check')
     # pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-
-    registerService.register(User, db, email, password,
-                             nickname, password_check)
+    registerService.register(User, db, email, password, nickname, password_check)
     return render_template('register.html')
 
 
 @app.route("/studyStart")
 def studyStart():
+    studyService.studyStart(db)
     return render_template('main.html')
 
 @app.route("/studyEnd")
 def studyEnd():
+    studyService.studyEnd(db)
     return render_template('main.html')
 
 if __name__ == "__main__":
