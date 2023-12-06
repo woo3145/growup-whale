@@ -12,9 +12,6 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-import secrets
 from services import loginService
 
 app = Flask(__name__)
@@ -59,8 +56,6 @@ jwt = JWTManager(app)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-bcrypt = Bcrypt(app)
-
 
 
 class User(db.Model):
@@ -69,65 +64,36 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.String(10000), nullable=False)
- 
-#     whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
-#     whale = relationship("whale", back_populates="user")
-#     study_type_level_id = db.Column(
-#         db.Integer, db.ForeignKey("studytypelevel.id"))
-#     study_type_level = relationship("studytypelevel", back_populates="user")
+
+    whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+    whale = relationship("whale", back_populates="user")
+    study_type_level_id = db.Column(
+        db.Integer, db.ForeignKey("studytypelevel.id"))
+    study_type_level = relationship("studytypelevel", back_populates="user")
 
 
-# class Whale(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     level = db.Column(db.String(100), nullable=False)
-#     job = db.Column(db.String(100), nullable=False)
-#     exp = db.Column(db.String(100), nullable=False)
+class Whale(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.String(100), nullable=False)
+    job = db.Column(db.String(100), nullable=False)
+    exp = db.Column(db.String(100), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
-# class Whale(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     level = db.Column(db.String(100), nullable=False)
-#     job = db.Column(db.String(100), nullable=False)
-#     exp = db.Column(db.String(100), nullable=False)
+class Studytypelevel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    blog_lv = db.Column(db.String(100), nullable=False)
+    argorithm_lv = db.Column(db.String(100), nullable=False)
+    main_lv = db.Column(db.String(100), nullable=False)
+    cs_lv = db.Column(db.String(100), nullable=False)
 
-#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-
-
-# class Studytypelevel(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     blog_lv = db.Column(db.String(100), nullable=False)
-#     argorithm_lv = db.Column(db.String(100), nullable=False)
-#     main_lv = db.Column(db.String(100), nullable=False)
-#     cs_lv = db.Column(db.String(100), nullable=False)
-
-#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
 with app.app_context():
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
     db.create_all() 
-
-    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
-    db.create_all() 
-
-    db.drop_all()
-    db.create_all()
-    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
-    hashed_password = bcrypt.generate_password_hash('test1234').decode('utf-8')
-
-    # User 객체 생성 및 데이터베이스에 추가
-    new_user = User(email='test@test.com', password=hashed_password, nickname='TestUser', starttime='2023-01-01')
-    db.session.add(new_user)
-    db.session.commit()
-
-    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
-    db.create_all()
-
-    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
-    db.create_all() 
-
 
 @app.route("/")
 def home():
