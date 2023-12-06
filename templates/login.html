@@ -20,9 +20,59 @@
   </head>
 
   <body data-bs-theme="dark">
-    
-
-    <h3>로그인 페이지</h3>
+          <h2>Login</h2>
+          <form id="loginForm">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password" required>
+              <button type="button" onclick="submitForm()">Login</button>
+          </form>
+      
+          <script>
+              function submitForm() {
+                  var email = document.getElementById("email").value;
+                  var password = document.getElementById("password").value;
+      
+                  // 입력값이 비어 있는지 확인
+                  if (!email || !password) {
+                      // 팝업 창으로 오류 메시지 표시
+                      alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
+                      return;
+                  }
+      
+                  // 서버로 보낼 데이터를 객체로 만듭니다.
+                  var data = {
+                      email: email,
+                      password: password
+                  };
+      
+                  // 서버로 POST 요청을 보냅니다.
+                  fetch('http://127.0.0.1:5000/login', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify(data)
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
+                      }
+                      return response.json();
+                  })
+                  .then(data => {
+                      // 서버에서의 응답을 처리합니다.
+                      console.log('Success:', data);
+                  })
+                  .catch((error) => {
+                      // 팝업 창으로 오류 메시지 표시
+                      alert(error.message);
+                      console.error('Error:', error);
+                  });
+              }
+          </script>
+      </body>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
