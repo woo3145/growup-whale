@@ -11,7 +11,11 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
+<<<<<<< HEAD
 from services import loginService, registerService
+=======
+from services import loginService
+>>>>>>> main
 
 app = Flask(__name__)
 
@@ -39,6 +43,10 @@ jwt = JWTManager(app)
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 
 
 class User(db.Model):
@@ -47,7 +55,14 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.String(10000), nullable=False)
+ 
+#     whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+#     whale = relationship("whale", back_populates="user")
+#     study_type_level_id = db.Column(
+#         db.Integer, db.ForeignKey("studytypelevel.id"))
+#     study_type_level = relationship("studytypelevel", back_populates="user")
 
+<<<<<<< HEAD
     whale = db.relationship("Whale", uselist=False, back_populates="user")
     study_type_level = db.relationship(
         "Studytypelevel", uselist=False, back_populates="user")
@@ -57,8 +72,16 @@ class User(db.Model):
     # study_type_level_id = db.Column(
     #     db.Integer, db.ForeignKey("studytypelevel.id"))
     # study_type_level = relationship("studytypelevel", back_populates="user")
+=======
+>>>>>>> main
 
+# class Whale(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     level = db.Column(db.String(100), nullable=False)
+#     job = db.Column(db.String(100), nullable=False)
+#     exp = db.Column(db.String(100), nullable=False)
 
+<<<<<<< HEAD
 class Whale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     level = db.Column(db.String(100), nullable=False)
@@ -68,24 +91,35 @@ class Whale(db.Model):
 # user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship("User", back_populates="whale")
+=======
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+>>>>>>> main
 
 
-class Studytypelevel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    blog_lv = db.Column(db.String(100), nullable=False)
-    argorithm_lv = db.Column(db.String(100), nullable=False)
-    main_lv = db.Column(db.String(100), nullable=False)
-    cs_lv = db.Column(db.String(100), nullable=False)
+# class Studytypelevel(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     blog_lv = db.Column(db.String(100), nullable=False)
+#     argorithm_lv = db.Column(db.String(100), nullable=False)
+#     main_lv = db.Column(db.String(100), nullable=False)
+#     cs_lv = db.Column(db.String(100), nullable=False)
 
+<<<<<<< HEAD
 # user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = relationship("User", back_populates="whale")
+=======
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+>>>>>>> main
 
 
 with app.app_context():
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
+<<<<<<< HEAD
     db.create_all()
 
+=======
+    db.create_all() 
+>>>>>>> main
 
 @app.route("/")
 def home():
@@ -111,8 +145,12 @@ def login():
 
             # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
             response = make_response(login_result)
+<<<<<<< HEAD
             response.set_cookie('access_token', access_token,
                                 httponly=True, secure=True)
+=======
+            response.set_cookie('access_token', access_token, httponly=True, secure=True)
+>>>>>>> main
 
             return response
 
