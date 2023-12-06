@@ -7,7 +7,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-from services import hello
+from services import loginService
 
 app = Flask(__name__)
 
@@ -36,12 +36,11 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    hello.hello()
     return render_template('main.html')
-
 
 @app.route("/login")
 def login():
+    loginService.userLogin()
     return render_template('login.html')
 
 @app.route("/register")
