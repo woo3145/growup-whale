@@ -86,6 +86,7 @@ def home():
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
+<<<<<<< refs/remotes/upstream/main
     if request.method == 'GET':
         return render_template('login.html')  # 리디렉션 대신 템플릿을 렌더링
 
@@ -113,6 +114,10 @@ def login():
     else:
         return jsonify(message='Method not allowed'), 405
 
+=======
+    
+    return render_template('login.html')
+>>>>>>> feat add login.html
 
 @app.route("/register")
 def register():
