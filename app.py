@@ -6,29 +6,55 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 from services import loginService
 
 app = Flask(__name__)
 
-## DB
+# DB
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] =\
-        'sqlite:///' + os.path.join(basedir, 'database.db')
+    'sqlite:///' + os.path.join(basedir, 'database.db')
 
 db = SQLAlchemy(app)
 
-class Song(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), nullable=False)
-    artist = db.Column(db.String(100), nullable=False)
-    title = db.Column(db.String(100), nullable=False)
-    image_url = db.Column(db.String(10000), nullable=False)
 
-    def __repr__(self):
-        return f'{self.username} {self.title} 추천 by {self.username}'
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    nickname = db.Column(db.String(100), nullable=False)
+    starttime = db.Column(db.String(10000), nullable=False)
+
+    whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+    whale = relationship("whale", back_populates="user")
+    study_type_level_id = db.Column(
+        db.Integer, db.ForeignKey("studytypelevel.id"))
+    study_type_level = relationship("studytypelevel", back_populates="user")
+
+
+class Whale(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.String(100), nullable=False)
+    job = db.Column(db.String(100), nullable=False)
+    exp = db.Column(db.String(100), nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
+
+class Studytypelevel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    blog_lv = db.Column(db.String(100), nullable=False)
+    argorithm_lv = db.Column(db.String(100), nullable=False)
+    main_lv = db.Column(db.String(100), nullable=False)
+    cs_lv = db.Column(db.String(100), nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
 
 with app.app_context():
     db.create_all()
@@ -38,14 +64,17 @@ with app.app_context():
 def home():
     return render_template('main.html')
 
+
 @app.route("/login")
 def login():
     
     return render_template('login.html')
 
+
 @app.route("/register")
 def register():
     return render_template('register.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
