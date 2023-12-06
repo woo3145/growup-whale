@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,20 +12,10 @@
     <title>{% block title %}{% endblock %} - 고래 키우기</title>
     {% endblock %}
   </head>
-  <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand/logo -->
-        <a class="navbar-brand" href="#">🐳 고래키우기</a>
-        
-        <!-- Links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">메인</a>
-          </li>
-        </ul>
-    </nav>
-    <div class="container-fluid">
-        <div id="content">{% block content %}{% endblock %}</div>
+  <body style="height:100vh" >
+    
+    <div class="container-fluid h-100">
+        <div id="content" class="container-sm h-100">{% block content %}{% endblock %}</div>
     </div>
   </body>
 </html>
