@@ -20,8 +20,8 @@ app.config['JWT_SECRET_KEY'] = 'your_secret_key'
 jwt = JWTManager(app)
 
 # 로그인 엔드포인트
-@app.route('/login', methods=['POST'])
-def login():
+
+def login(email):
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
