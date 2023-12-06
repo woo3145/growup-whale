@@ -102,13 +102,13 @@ def login():
             access_token = login_result['access_token']
 
             # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
-            response = make_response(login_result=login_result)
+            response = make_response(login_result)
             response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
             return response
 
         else:
-            return make_response(login_result=login_result)
+            return make_response(login_result)
 
     else:
         return jsonify(message='Method not allowed'), 405
