@@ -15,7 +15,7 @@ def get_time() :
     time = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
     return time
 
-# 경험치 (공부시간) 구하기
+# 경험치 (공부시간) 구하기...
 def get_exp(start_time, end_time) :
     study_time = end_time - start_time
     return study_time.seconds // 60
