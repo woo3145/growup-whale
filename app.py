@@ -133,7 +133,7 @@ def register():
     # pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     registerService.register(User, db, email, password,
-                             nickname, render_template, password_check)
+                             nickname, password_check)
     return render_template('register.html')
 
 
