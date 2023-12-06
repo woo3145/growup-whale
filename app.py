@@ -65,14 +65,14 @@ class User(db.Model):
 #     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
-# class Studytypelevel(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     blog_lv = db.Column(db.String(100), nullable=False)
-#     argorithm_lv = db.Column(db.String(100), nullable=False)
-#     main_lv = db.Column(db.String(100), nullable=False)
-#     cs_lv = db.Column(db.String(100), nullable=False)
+class Studytypelevel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    blog_lv = db.Column(db.String(100), nullable=False)
+    argorithm_lv = db.Column(db.String(100), nullable=False)
+    main_lv = db.Column(db.String(100), nullable=False)
+    cs_lv = db.Column(db.String(100), nullable=False)
 
-#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
 with app.app_context():

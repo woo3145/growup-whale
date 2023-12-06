@@ -29,7 +29,9 @@ def studyStart(db) :
     user_list = db.user.query.filter_by(id='값').first()
     if user_list[0].starttime is not None :   
         print("시작 시간이 채워져있습니다. 해당 공부를 종료하고, 다른 공부를 진행?")
-        # 
+        
+        studyEnd()
+
     else : 
         print("시작 시간이 비어있습니다!")
 
