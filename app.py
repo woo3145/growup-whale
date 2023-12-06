@@ -76,15 +76,8 @@ class User(db.Model):
 
 
 with app.app_context():
-    db.drop_all()
-    db.create_all()
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
-    hashed_password = bcrypt.generate_password_hash('test1234').decode('utf-8')
-
-    # User 객체 생성 및 데이터베이스에 추가
-    new_user = User(email='test@test.com', password=hashed_password, nickname='TestUser', starttime='2023-01-01')
-    db.session.add(new_user)
-    db.session.commit()
+    db.create_all()
 
 @app.route("/")
 def home():
