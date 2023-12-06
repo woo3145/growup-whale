@@ -5,7 +5,6 @@
 '''
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
-from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
@@ -22,21 +21,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'sqlite:///' + os.path.join(basedir, 'database.db')
-
-
-# JWT_SECRET_KEY가 이미 설정되어 있는지 확인
-jwt_secret_key = os.environ.get('JWT_SECRET_KEY')
-
-# JWT_SECRET_KEY가 없으면 새로운 키 생성
-if jwt_secret_key is None:
-    jwt_secret_key = secrets.token_hex(32)
-    os.environ['JWT_SECRET_KEY'] = jwt_secret_key
-    print(f"New JWT_SECRET_KEY generated: {jwt_secret_key}")
-
-# Flask-JWT-Extended 설정
-app.config['JWT_SECRET_KEY'] = jwt_secret_key
-jwt = JWTManager(app)
-
 
 
 # JWT_SECRET_KEY가 이미 설정되어 있는지 확인
