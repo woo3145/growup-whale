@@ -105,6 +105,7 @@ class User(db.Model):
 
 with app.app_context():
 <<<<<<< refs/remotes/upstream/main
+<<<<<<< refs/remotes/upstream/main
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
     db.create_all() 
 =======
@@ -118,6 +119,10 @@ with app.app_context():
     db.session.add(new_user)
     db.session.commit()
 >>>>>>> fix loginService app.py
+=======
+    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
+    db.create_all()
+>>>>>>> fix login
 
 @app.route("/")
 def home():
