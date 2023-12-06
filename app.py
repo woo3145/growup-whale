@@ -4,12 +4,14 @@
 1. render_template : html파일을 가져와서 보여준다
 '''
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
-
-from services import loginService, registerService
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import secrets
+from services import loginService
 
 app = Flask(__name__)
 
@@ -20,7 +22,23 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'sqlite:///' + os.path.join(basedir, 'database.db')
 
+
+# JWT_SECRET_KEY가 이미 설정되어 있는지 확인
+jwt_secret_key = os.environ.get('JWT_SECRET_KEY')
+
+# JWT_SECRET_KEY가 없으면 새로운 키 생성
+if jwt_secret_key is None:
+    jwt_secret_key = secrets.token_hex(32)
+    os.environ['JWT_SECRET_KEY'] = jwt_secret_key
+    print(f"New JWT_SECRET_KEY generated: {jwt_secret_key}")
+
+# Flask-JWT-Extended 설정
+app.config['JWT_SECRET_KEY'] = jwt_secret_key
+jwt = JWTManager(app)
+
+
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
 class User(db.Model):
@@ -65,6 +83,7 @@ class Studytypelevel(db.Model):
 
 
 with app.app_context():
+    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
     db.create_all()
 
 
@@ -73,10 +92,35 @@ def home():
     return render_template('main.html')
 
 
-@app.route("/login")
+@app.route("/login", methods=['POST', 'GET'])
 def login():
-    loginService.userLogin()
-    return render_template('login.html')
+    if request.method == 'GET':
+        return render_template('login.html')  # 리디렉션 대신 템플릿을 렌더링
+
+    elif request.method == 'POST':
+        data = request.get_json()
+        user_email = data.get('email')
+        password = data.get('password')
+
+        # loginService의 login 함수 호출, db 전달
+        login_result = loginService.login(db, User, user_email, password)
+
+        if login_result['success']:
+            # 토큰 생성
+            access_token = login_result['access_token']
+
+            # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
+            response = make_response(login_result)
+            response.set_cookie('access_token', access_token,
+                                httponly=True, secure=True)
+
+            return response
+
+        else:
+            return make_response(login_result)
+
+    else:
+        return jsonify(message='Method not allowed'), 405
 
 
 @app.route("/register")
