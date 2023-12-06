@@ -52,15 +52,17 @@ def studyStart(db) :
         # 
     
 
-
-
 # 공부 종료
 def studyEnd(db) :
     print("studyEnd")
 
-    # DB에서 시작시간 불러오기 (user->starttime), , 시작시간 삭제
+    # DB에서 시작시간 불러오기 (user->starttime)
     user_list = db.user.query.filter_by(id='값').first()
     start_time = user_list[0].starttime
+
+    # 시작 시간 삭제
+    user_list.starttime = None
+    db.session.add(user_list)
 
     # 종료시간 구해서 차이 (경험치) 만들기
     time = get_time()
@@ -69,10 +71,17 @@ def studyEnd(db) :
     exp = study_time.seconds // 60
 
     # 해당 study_type에 경험치 추가해주기
+    studytype_list = db.studytypelevel.query.filter_by(id='값').first()
+    # db.studytypelevel.스터디타입 = exp
 
     # study_type 중에 제일 높은 숫자를 가진걸로 job 설정
-
-    
+    data = {
+        'blog_lv' : studytype_list[0].blog_lv,
+        'algorithm_lv' : studytype_list[0].algorithm_lv,
+        'main_lv' : studytype_list[0].main_lv,
+        'cs' : studytype_list[0].cs_lv
+    }
+    job = max(data, key=data.get)
 
     # 총 경험치와 레벨을 계산하여 DB에 기록 (whale -> level, exp)
 
