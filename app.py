@@ -55,6 +55,14 @@ class User(db.Model):
 #         db.Integer, db.ForeignKey("studytypelevel.id"))
 #     study_type_level = relationship("studytypelevel", back_populates="user")
 
+<<<<<<< refs/remotes/upstream/main
+=======
+    # whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+    # whale = relationship("whale", back_populates="user")
+    # study_type_level_id = db.Column(
+    #     db.Integer, db.ForeignKey("studytypelevel.id"))
+    # study_type_level = relationship("studytypelevel", back_populates="user")
+>>>>>>> fix loginService app.py
 
 # class Whale(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
@@ -62,8 +70,18 @@ class User(db.Model):
 #     job = db.Column(db.String(100), nullable=False)
 #     exp = db.Column(db.String(100), nullable=False)
 
+<<<<<<< refs/remotes/upstream/main
 #     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
+=======
+# class Whale(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     level = db.Column(db.String(100), nullable=False)
+#     job = db.Column(db.String(100), nullable=False)
+#     exp = db.Column(db.String(100), nullable=False)
+
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+>>>>>>> fix loginService app.py
 
 # class Studytypelevel(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
@@ -72,12 +90,34 @@ class User(db.Model):
 #     main_lv = db.Column(db.String(100), nullable=False)
 #     cs_lv = db.Column(db.String(100), nullable=False)
 
+<<<<<<< refs/remotes/upstream/main
+=======
+# class Studytypelevel(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     blog_lv = db.Column(db.String(100), nullable=False)
+#     argorithm_lv = db.Column(db.String(100), nullable=False)
+#     main_lv = db.Column(db.String(100), nullable=False)
+#     cs_lv = db.Column(db.String(100), nullable=False)
+
+>>>>>>> fix loginService app.py
 #     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
 with app.app_context():
+<<<<<<< refs/remotes/upstream/main
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
     db.create_all() 
+=======
+    db.drop_all()
+    db.create_all()
+    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
+    hashed_password = bcrypt.generate_password_hash('test1234').decode('utf-8')
+
+    # User 객체 생성 및 데이터베이스에 추가
+    new_user = User(email='test@test.com', password=hashed_password, nickname='TestUser', starttime='2023-01-01')
+    db.session.add(new_user)
+    db.session.commit()
+>>>>>>> fix loginService app.py
 
 @app.route("/")
 def home():
@@ -87,6 +127,9 @@ def home():
 @app.route("/login", methods=['POST', 'GET'])
 def login():
 <<<<<<< refs/remotes/upstream/main
+<<<<<<< refs/remotes/upstream/main
+=======
+>>>>>>> fix loginService app.py
     if request.method == 'GET':
         return render_template('login.html')  # 리디렉션 대신 템플릿을 렌더링
 
@@ -103,21 +146,32 @@ def login():
             access_token = login_result['access_token']
 
             # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
+<<<<<<< refs/remotes/upstream/main
             response = make_response(login_result)
+=======
+            response = make_response(render_template('login.html', login_result=login_result))
+>>>>>>> fix loginService app.py
             response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
             return response
 
         else:
+<<<<<<< refs/remotes/upstream/main
             return make_response(login_result)
+=======
+            return render_template('login.html', login_result=login_result)
+>>>>>>> fix loginService app.py
 
     else:
         return jsonify(message='Method not allowed'), 405
 
+<<<<<<< refs/remotes/upstream/main
 =======
     
     return render_template('login.html')
 >>>>>>> feat add login.html
+=======
+>>>>>>> fix loginService app.py
 
 @app.route("/register")
 def register():
