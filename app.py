@@ -161,12 +161,16 @@ def login():
             # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
+<<<<<<< refs/remotes/upstream/main
             response = make_response(login_result)
 =======
             response = make_response(render_template('login.html', login_result=login_result))
 >>>>>>> fix loginService app.py
 =======
             response = make_response(login_result=login_result)
+>>>>>>> fix login function
+=======
+            response = make_response(login_result)
 >>>>>>> fix login function
             response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
@@ -175,12 +179,16 @@ def login():
         else:
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
+<<<<<<< refs/remotes/upstream/main
             return make_response(login_result)
 =======
             return render_template('login.html', login_result=login_result)
 >>>>>>> fix loginService app.py
 =======
             return make_response(login_result=login_result)
+>>>>>>> fix login function
+=======
+            return make_response(login_result)
 >>>>>>> fix login function
 
     else:
