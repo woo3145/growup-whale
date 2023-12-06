@@ -30,48 +30,60 @@
           </form>
       
           <script>
-              function submitForm() {
-                  var email = document.getElementById("email").value;
-                  var password = document.getElementById("password").value;
-      
-                  // 입력값이 비어 있는지 확인
-                  if (!email || !password) {
-                      // 팝업 창으로 오류 메시지 표시
-                      alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
-                      return;
-                  }
-      
-                  // 서버로 보낼 데이터를 객체로 만듭니다.
-                  var data = {
-                      email: email,
-                      password: password
-                  };
-      
-                  // 서버로 POST 요청을 보냅니다.
-                  fetch('http://127.0.0.1:5000/login', {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json'
-                      },
-                      body: JSON.stringify(data)
-                  })
-                  .then(response => {
-                      if (!response.ok) {
-                          throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
-                      }
-                      return response.json();
-                  })
-                  .then(data => {
-                      // 서버에서의 응답을 처리합니다.
-                      console.log('Success:', data);
-                  })
-                  .catch((error) => {
-                      // 팝업 창으로 오류 메시지 표시
-                      alert(error.message);
-                      console.error('Error:', error);
-                  });
-              }
-          </script>
+            function submitForm() {
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+        
+                // 입력값이 비어 있는지 확인
+                if (!email || !password) {
+                    // 팝업 창으로 오류 메시지 표시
+                    alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
+                    return;
+                }
+        
+                // 서버로 보낼 데이터를 객체로 만듭니다.
+                var data = {
+                    email: email,
+                    password: password
+                };
+        
+                // 서버로 POST 요청을 보냅니다.
+                fetch('http://127.0.0.1:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                  print(response)
+                    if (!response.ok) {
+                        throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
+                    } else {
+                        // 실패한 경우 에러를 던짐
+                        throw new Error('서버 응답 실패');
+                   }
+                    return response.json();
+                })
+                .then(data => {
+                    // 서버에서의 응답을 처리합니다.
+                    console.log('Success:', data);
+        
+                    // 쿠키에 토큰 저장
+                    document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+        
+                    // 이후 원하는 작업 수행 (예: 페이지 리디렉션)
+                    
+                    alert('로그인 되었습니다. 메인 페이지로 이동합니다.');
+                   
+                })
+                .catch((error) => {
+                    // 팝업 창으로 오류 메시지 표시
+                    alert(error.message);
+                    console.error('Error:', error);
+                });
+            }
+        </script>
       </body>
 
     <script
