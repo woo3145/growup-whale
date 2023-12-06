@@ -48,12 +48,12 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.String(10000), nullable=False)
-
-    # whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
-    # whale = relationship("whale", back_populates="user")
-    # study_type_level_id = db.Column(
-    #     db.Integer, db.ForeignKey("studytypelevel.id"))
-    # study_type_level = relationship("studytypelevel", back_populates="user")
+ 
+#     whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+#     whale = relationship("whale", back_populates="user")
+#     study_type_level_id = db.Column(
+#         db.Integer, db.ForeignKey("studytypelevel.id"))
+#     study_type_level = relationship("studytypelevel", back_populates="user")
 
 
 # class Whale(db.Model):
@@ -76,8 +76,8 @@ class User(db.Model):
 
 
 with app.app_context():
-    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
-    db.create_all()
+    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
+    db.create_all() 
 
 @app.route("/")
 def home():
