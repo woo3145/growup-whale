@@ -54,6 +54,7 @@ class User(db.Model):
 #     study_type_level_id = db.Column(
 #         db.Integer, db.ForeignKey("studytypelevel.id"))
 #     study_type_level = relationship("studytypelevel", back_populates="user")
+<<<<<<< refs/remotes/upstream/main
 
 <<<<<<< refs/remotes/upstream/main
 =======
@@ -69,6 +70,8 @@ class User(db.Model):
 #     level = db.Column(db.String(100), nullable=False)
 #     job = db.Column(db.String(100), nullable=False)
 #     exp = db.Column(db.String(100), nullable=False)
+=======
+>>>>>>> test
 
 <<<<<<< refs/remotes/upstream/main
 #     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -106,6 +109,7 @@ class User(db.Model):
 with app.app_context():
 <<<<<<< refs/remotes/upstream/main
 <<<<<<< refs/remotes/upstream/main
+<<<<<<< refs/remotes/upstream/main
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
     db.create_all() 
 =======
@@ -123,6 +127,10 @@ with app.app_context():
     # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화
     db.create_all()
 >>>>>>> fix login
+=======
+    # 데이터베이스에 추가하기 전에 비밀번호를 bcrypt로 해시화 dddd
+    db.create_all() 
+>>>>>>> test
 
 @app.route("/")
 def home():
