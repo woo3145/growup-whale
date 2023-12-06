@@ -119,5 +119,13 @@ def register():
     return render_template('register.html')
 
 
+@app.route("/studyStart")
+def studyStart():
+    return render_template('main.html')
+
+@app.route("/studyEnd")
+def studyEnd():
+    return render_template('main.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
