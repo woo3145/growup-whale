@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
-from services import loginService
+from services import loginService, registerService
 
 app = Flask(__name__)
 
@@ -30,11 +30,15 @@ class User(db.Model):
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.String(10000), nullable=False)
 
-    whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
-    whale = relationship("whale", back_populates="user")
-    study_type_level_id = db.Column(
-        db.Integer, db.ForeignKey("studytypelevel.id"))
-    study_type_level = relationship("studytypelevel", back_populates="user")
+    whale = db.relationship("Whale", uselist=False, back_populates="user")
+    study_type_level = db.relationship(
+        "Studytypelevel", uselist=False, back_populates="user")
+
+    # whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+    # whale = relationship("whale", back_populates="user")
+    # study_type_level_id = db.Column(
+    #     db.Integer, db.ForeignKey("studytypelevel.id"))
+    # study_type_level = relationship("studytypelevel", back_populates="user")
 
 
 class Whale(db.Model):
@@ -43,7 +47,9 @@ class Whale(db.Model):
     job = db.Column(db.String(100), nullable=False)
     exp = db.Column(db.String(100), nullable=False)
 
+# user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = db.relationship("User", back_populates="whale")
 
 
 class Studytypelevel(db.Model):
@@ -53,7 +59,9 @@ class Studytypelevel(db.Model):
     main_lv = db.Column(db.String(100), nullable=False)
     cs_lv = db.Column(db.String(100), nullable=False)
 
+# user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = relationship("User", back_populates="whale")
 
 
 with app.app_context():
@@ -73,6 +81,15 @@ def login():
 
 @app.route("/register")
 def register():
+    nickname = request.args.get('nickname')
+    email = request.args.get('email')
+    password = request.args.get('pw')
+    password_check = request.args.get('pw_check')
+
+    # pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    registerService.register(User, db, email, password,
+                             nickname, render_template, password_check)
     return render_template('register.html')
 
 
