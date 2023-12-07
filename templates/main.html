@@ -309,11 +309,11 @@
         </div>
 
         <div class="w-100 d-flex justify-content-center align-items-center py-4 gap-4">
-          {{ confirmButton(endpoint="#", text="블로그", icon="📝") }}
-          {{ confirmButton(endpoint="#", text="주특기", icon="💻") }}
-          {{ confirmButton(endpoint="#", text="알고리즘", icon="🤢") }}
-          {{ confirmButton(endpoint="#", text="CS지식", icon="🛠️") }}
-          {{ confirmButton(endpoint="#", text="운동하기", icon="💪") }}
+          {{ confirmButton(endpoint="study?study_type=blog", text="블로그", icon="📝", value="blog") }}
+          {{ confirmButton(endpoint="study?study_type=main", text="주특기", icon="💻", value="main") }}
+          {{ confirmButton(endpoint="study?study_type=argorithm", text="알고리즘", icon="🤢", value="argorithm") }}
+          {{ confirmButton(endpoint="study?study_type=cs", text="CS지식", icon="🛠️", value="cs") }}
+          {{ confirmButton(endpoint="study?study_type=work_out", text="운동하기", icon="💪", value="work_out") }}
         </div>
         <p style="font-size:small" class="small text-black-50">오늘 집중 할 한가지 선택하기!</p>
       </div>

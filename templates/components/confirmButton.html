@@ -1,4 +1,4 @@
-{% macro confirmButton(endpoint='#', text="text", icon="👻") %}
+{% macro confirmButton(endpoint='#', text="text", icon="👻", value="") %}
     <div id="confirm_button" class="flex-shrink-0">
         <button type="button" class="btn btn-outline-dark flex-shrink-0" data-toggle="modal" data-target="#ConfirmModal-{{ text }}">
             {{ icon }} {{ text }}
@@ -10,10 +10,12 @@
                     <div class="modal-header">{{ icon }} {{ text }}</div>
                     <div class="modal-body">하루에 한번만 누를 수 있어요.</div>
                     <div class="modal-footer">
-                        <form action="{{ endpoint }}" method="post">
-                            <button type="submit" class="btn btn-primary">밥주기</button>
+                        <div>
+                            <a href="{{ endpoint }}">
+                                <button type="button" class="btn btn-primary">밥주기</button>
+                            </a>
                             <button class="btn btn-default" data-dismiss="modal">취소</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
