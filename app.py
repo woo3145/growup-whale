@@ -84,6 +84,9 @@ with app.app_context():
 def home():
     return render_template('main.html')
 
+@app.route("/signin")
+def renderSiginin():
+    return render_template("signin.html")
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
