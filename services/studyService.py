@@ -55,7 +55,6 @@ def studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType) :
     db.session.add(whale_list)
     db.session.commit()
 
-    # level -> job -> 0 (whale name, url)
 
 
 
