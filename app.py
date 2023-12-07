@@ -47,9 +47,6 @@ class User(db.Model):
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.Time, nullable=True)
 
-    whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
-    whale = db.relationship("Whale",  back_populates="user")
-
     whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
     whale = relationship("whale", back_populates="user")
     study_type_level_id = db.Column(
@@ -59,21 +56,23 @@ class User(db.Model):
 
 class Whale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    level = db.Column(db.String(100), nullable=False)
-    job = db.Column(db.String(100), nullable=False)
-    exp = db.Column(db.String(100), nullable=False)
+    level = db.Column(db.Integer, nullable=False)
+    job = db.Column(db.String(100), nullable=True)
+    exp = db.Column(db.Integer, nullable=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
 class Studytypelevel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    blog_lv = db.Column(db.String(100), nullable=False)
-    argorithm_lv = db.Column(db.String(100), nullable=False)
-    main_lv = db.Column(db.String(100), nullable=False)
-    cs_lv = db.Column(db.String(100), nullable=False)
+    blog_lv = db.Column(db.Integer, nullable=True)
+    argorithm_lv = db.Column(db.Integer, nullable=True)
+    main_lv = db.Column(db.Integer, nullable=True)
+    cs_lv = db.Column(db.Integer, nullable=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = db.relationship(
+        "User", back_populates="study_type_level", uselist=False)
 
 
 with app.app_context():
