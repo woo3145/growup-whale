@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, dataService, studyService
+from services import loginService, registerService, dataService, studyService, jwtService
 
 app = Flask(__name__)
 
@@ -146,26 +146,40 @@ def register():
         
         return make_response(res)
 
+
 @app.route("/study")
 def study():
 
-    # if not current_identity:
-    # return render_template('signin.html')
+    # email 받아오기
+    cookie = request.cookies.get("access_token")
+    email =''
+    
+    if cookie :
+        email = jwtService.get_email.from_cookie(cookie)
+        if email :
+            email = email
+        else :
+            return "Error decoding token"
+    else :
+        return "No token found"
 
-    # 유저의 id 받아오기 
-    user = db.session.query(User).filter_by(email="test@test").first()
-    whaleData = dataService.loadWhaleData(app)
+    # 유저의 id 받아오기
+    user = db.session.query(User).filter_by(email=email).first()
+    user_id = user.id
 
     # 스터디 타입 받아오기
     studyType = request.args.get("study_type")
 
     # 레벨별 경험치 담은 변수 생성
     required_exp = dataService.loadRequiredExp(app)
+    whaleData = dataService.loadWhaleData(app)
+    prevLevel = user.whale.level
+    nextRequiredExp = required_exp[user.whale.level]
+    print(prevLevel, nextRequiredExp)
 
     # studycheck함수로 넘겨줌
     studyService.studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType)
     
-
     return redirect("/")
     #return render_template('main.html', user=user, whale=whaleData["0"])
     #response = make_response(render_template('main.html'))
