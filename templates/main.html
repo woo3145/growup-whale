@@ -294,11 +294,21 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-          const animations = ['animation1', 'animation2', 'animation3', 'animation4', 'animation5']; 
-          const whaleCard = document.getElementById('whaleCard');
-          const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-          whaleCard.classList.add(randomAnimation);
+            const animations = ['animation1', 'animation2', 'animation3', 'animation4', 'animation5']; 
+            const whaleCard = document.getElementById('whaleCard');
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            whaleCard.classList.add(randomAnimation);
+
+            setTimeout(function() {
+                animations.forEach(animation => {
+                    whaleCard.classList.remove(animation);
+                });
+                const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                whaleCard.classList.add(randomAnimation);
+            }, 20000);
       });
+
+      
     </script>
   </head>
 
