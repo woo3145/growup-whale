@@ -81,8 +81,22 @@ with app.app_context():
 
 
 @app.route("/")
+@jwt_required(optional=True)
 def home():
+    current_identity = get_jwt_identity()
+
+    # if not current_identity:
+    #     return render_template('signin.html')
+    
+    user = db.session.query(User).filter_by(email=current_identity)\
+    .add_columns(Whale)\
+    .first()
+    
+
+
+
     return render_template('main.html')
+    
 
 @app.route("/signin")
 def renderSiginin():
