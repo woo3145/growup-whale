@@ -109,7 +109,12 @@ def home():
     else:
         curWhale = whaleData[user_level][user.whale.job][0]
 
-    return render_template('main.html', user=user, whale=curWhale, percent=percent)
+    isTodayStudy = False
+
+    if user.starttime and user.starttime.date() == studyService.get_time():
+        isTodayStudy = True
+    
+    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy)
     
 
 @app.route("/signin")
