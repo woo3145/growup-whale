@@ -8,7 +8,6 @@ def studyCheck(db, User, required_exp, studyType, user_email) :
     # 유저 이메일 받아오기, id 구하기
     email = user_email
     user_list = db.session.query(User).filter_by(email=email).first()
-    user_id = user_list.id
 
     # 한 번만 클릭 할 수 있도록 제어s
     user_date = user_list.starttime.date() if user_list.starttime else None
