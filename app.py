@@ -91,7 +91,7 @@ def home():
     # if not current_identity:
     #     return render_template('signin.html')
     
-    user = db.session.query(User).filter_by(email="lcwoo3145@gmail.com").first()
+    user = db.session.query(User).filter_by(email="test@test").first()
     whaleData = dataService.loadWhaleData(app)
     
     return render_template('main.html', user=user, whale=whaleData["0"])
