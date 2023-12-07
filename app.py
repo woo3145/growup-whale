@@ -46,7 +46,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
-    starttime = db.Column(db.Date, nullable=True)
+    starttime = db.Column(db.DateTime, nullable=True)
 
     whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
     whale = db.relationship("Whale",  back_populates="user")
@@ -103,7 +103,7 @@ def home():
     requiredExpTable = dataService.loadRequiredExp(app)
     nextRequiredExp = requiredExpTable[user_level]
 
-    percent =  (curExp / nextRequiredExp)*100
+    percent = (curExp / nextRequiredExp)*100
     
     curWhale = {}   
     if user_level == "1":
@@ -179,22 +179,18 @@ def study():
 
     # 유저의 id 받아오기
     user = db.session.query(User).filter_by(email=user_email).first()
-    user_id = user.id
 
     # 스터디 타입 받아오기
     studyType = request.args.get("study_type")
 
     # 레벨별 경험치 담은 변수 생성
-    required_exp = dataService.loadRequiredExp(app)
-    whaleData = dataService.loadWhaleData(app)
+    nextRequiredExp = dataService.loadRequiredExp(app)[str(user.whale.level)]
 
     # studycheck함수로 넘겨줌
-    studyService.studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType, user_email)
+    studyService.studyCheck(db, User, nextRequiredExp, studyType, user_email)
     
     return redirect("/")
-    #return render_template('main.html', user=user, whale=whaleData["0"])
-    #response = make_response(render_template('main.html'))
-    #return response
+
 
 
 @app.route("/logout")
