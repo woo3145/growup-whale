@@ -1,17 +1,12 @@
-# 필수 라이브러리
-'''
-0. Flask : 웹서버를 시작할 수 있는 기능. app이라는 이름으로 플라스크를 시작한다
-1. render_template : html파일을 가져와서 보여준다
-'''
 import os
-from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
+from flask import Flask, render_template, request, redirect, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Integer
 from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, dataService
+from services import loginService, registerService, dataService, jwtService, studyService
 
 app = Flask(__name__)
 
@@ -46,7 +41,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
-    starttime = db.Column(db.Time, nullable=True)
+    starttime = db.Column(db.DateTime, nullable=True)
 
     whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
     whale = db.relationship("Whale",  back_populates="user")
@@ -75,60 +70,85 @@ class Studytypelevel(db.Model):
     user = db.relationship(
         "User", back_populates="study_type_level", uselist=False)
 
-
 with app.app_context():
     db.create_all()
-
 
 @app.route("/")
 @jwt_required(optional=True)
 def home():
     cookie = request.cookies.get("access_token")
-    print(cookie)
     if not cookie:
         return redirect("/signin")
+    
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
 
-    # if not current_identity:
-    #     return render_template('signin.html')
+    user = db.session.query(User).filter_by(email=user_email).first()
     
-    user = db.session.query(User).filter_by(email="test@test").first()
+
     whaleData = dataService.loadWhaleData(app)
+
+    user_level = str(user.whale.level)
+
+    curExp = user.whale.exp
+    requiredExpTable = dataService.loadRequiredExp(app)
+    nextRequiredExp = requiredExpTable[user_level]
+
+    bit = 0
+
+    for i in range(1, int(user_level)):
+        bit += requiredExpTable[str(i)]
+
+    percent =  ((curExp - bit) / (nextRequiredExp - bit))*100
     
-    return render_template('main.html', user=user, whale=whaleData["0"])
+    curWhale = {}
+    if user_level == "1":
+        curWhale = whaleData[user_level]
+    else:
+        curWhale = whaleData[user_level][user.whale.job][0]
+
+    isTodayStudy = False
+
+    if user.starttime and user.starttime.date() == studyService.get_time():
+        isTodayStudy = True
+    
+    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy)
     
 
 @app.route("/signin")
 def renderSiginin():
     return render_template("signin.html")
 
-@app.route("/login", methods=['POST', 'GET'])
+@app.route("/login", methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')  # 리디렉션 대신 템플릿을 렌더링
+    if request.method != "POST":
+        return jsonify(message='Method not allowed'), 405
 
-    elif request.method == 'POST':
-        data = request.get_json()
-        user_email = data.get('email')
-        password = data.get('password')
+    data = request.get_json()
+    user_email = data.get('email')
+    password = data.get('password')
 
-        # loginService의 login 함수 호출, db 전달
-        login_result = loginService.login(db, User, user_email, password)
+    # loginService의 login 함수 호출, db 전달
+    login_result = loginService.login(db, User, user_email, password)
 
-        if login_result['success']:
-            # 토큰 생성
-            access_token = login_result['access_token']
+    if login_result['success']:
+        # 토큰 생성
+        access_token = login_result['access_token']
 
-            # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
-            response = make_response(login_result)
-            response.set_cookie('access_token', access_token, httponly=True, secure=True)
+        # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
+        response = make_response(login_result)
+        response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
-            return response
-
-        else:
-            return make_response(login_result)
+        return response
 
     else:
-        return jsonify(message='Method not allowed'), 405
+        return make_response(login_result)
+
+        
+    
+    
 
 
 @app.route("/register", methods=['POST', 'GET'])
@@ -144,12 +164,34 @@ def register():
         
         return make_response(res)
 
+
 @app.route("/study")
 def study():
-    studyType = request.args.get("study_type")
-    print(studyType)
 
+    # email 받아오기
+    cookie = request.cookies.get("access_token")
+    if not cookie:
+        return redirect("/signin")
+    
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
+
+    # 유저의 id 받아오기
+    user = db.session.query(User).filter_by(email=user_email).first()
+
+    # 스터디 타입 받아오기
+    studyType = request.args.get("study_type")
+
+    # 레벨별 경험치 담은 변수 생성
+    nextRequiredExp = dataService.loadRequiredExp(app)[str(user.whale.level)]
+
+    # studycheck함수로 넘겨줌
+    studyService.studyCheck(db, User, nextRequiredExp, studyType, user_email)
+    
     return redirect("/")
+
 
 
 @app.route("/logout")

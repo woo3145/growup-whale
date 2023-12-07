@@ -1,6 +1,6 @@
-{% macro confirmButton(endpoint='#', text="text", icon="👻", value="") %}
+{% macro confirmButton(endpoint='#', text="text", icon="👻", value="", isTodayStudy=false) %}
     <div id="confirm_button" class="flex-shrink-0">
-        <button type="button" class="btn btn-outline-dark flex-shrink-0" data-toggle="modal" data-target="#ConfirmModal-{{ text }}">
+        <button type="button" class="btn btn-outline-dark flex-shrink-0" {% if isTodayStudy %}disabled {% endif %} data-toggle="modal" data-target="#ConfirmModal-{{ text }}">
             {{ icon }} {{ text }}
         </button>
 
