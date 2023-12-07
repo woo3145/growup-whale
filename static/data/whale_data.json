@@ -1,125 +1,110 @@
 {
     "1": {
         "name": "응애고래",
-        "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+        "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1______-removebg-preview_480-removebg-preview.png"
+
     },
     "2": {
         "blog": [
             {
-                "name": "근육고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-06_20.03.46_-_A_cartoon-style_muscular_whale_character_with_a_grandfatherly_style_added._This_version_of_the_muscular_whale_has_elements_like_a_gray_beard__spectacl-removebg-preview.png"
-            },
-            {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "뉴비고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog1.png"
             }
         ],
         "algorithm": [
             {
-                "name": "릴라고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-07_01.31.31_-_An_inventive_character_that_combines_the_features_of_a_gorilla_and_a_whale__designed_in_a_unique_cartoon_style._This_character_merges_the_muscular_bui-removebg-preview+(1).png"
+                "name": "우왕고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al1.png"
             }
         ],
         "main": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "닌자고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main1.png"
             }
         ],
         "cs": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "꼬맹쓰고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs1.png"
             }
         ]
     },
     "3": {
         "blog": [
             {
-                "name": "근육고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-06_20.03.46_-_A_cartoon-style_muscular_whale_character_with_a_grandfatherly_style_added._This_version_of_the_muscular_whale_has_elements_like_a_gray_beard__spectacl-removebg-preview.png"
-            },
-            {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "룰루고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog2.png"
             }
         ],
         "algorithm": [
             {
-                "name": "릴라고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-07_01.31.31_-_An_inventive_character_that_combines_the_features_of_a_gorilla_and_a_whale__designed_in_a_unique_cartoon_style._This_character_merges_the_muscular_bui-removebg-preview+(1).png"
+                "name": "퍼즐킹고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al2.png"
             }
         ],
         "main": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "고단백고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main2.png"
             }
         ],
         "cs": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "꼬마고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs2.png"
             }
         ]
     },
     "4": {
         "blog": [
             {
-                "name": "근육고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-06_20.03.46_-_A_cartoon-style_muscular_whale_character_with_a_grandfatherly_style_added._This_version_of_the_muscular_whale_has_elements_like_a_gray_beard__spectacl-removebg-preview.png"
-            },
-            {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "문지기고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog3.png"
             }
         ],
         "algorithm": [
             {
-                "name": "릴라고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-07_01.31.31_-_An_inventive_character_that_combines_the_features_of_a_gorilla_and_a_whale__designed_in_a_unique_cartoon_style._This_character_merges_the_muscular_bui-removebg-preview+(1).png"
+                "name": "고래고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al3.png"
             }
         ],
         "main": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "쇼미더고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main3.png"
             }
         ],
         "cs": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "덕후고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs3.png"
             }
         ]
     },
     "5": {
         "blog": [
             {
-                "name": "근육고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-06_20.03.46_-_A_cartoon-style_muscular_whale_character_with_a_grandfatherly_style_added._This_version_of_the_muscular_whale_has_elements_like_a_gray_beard__spectacl-removebg-preview.png"
-            },
-            {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "전사고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog4.png"
             }
         ],
         "algorithm": [
             {
-                "name": "릴라고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/DALL_E_2023-12-07_01.31.31_-_An_inventive_character_that_combines_the_features_of_a_gorilla_and_a_whale__designed_in_a_unique_cartoon_style._This_character_merges_the_muscular_bui-removebg-preview+(1).png"
+                "name": "코드마스터",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al4.png"
             }
         ],
         "main": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "레전드고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main4.png"
             }
         ],
         "cs": [
             {
-                "name": "응애고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/level1%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-removebg.png"
+                "name": "장인고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs4.png"
             }
         ]
     }

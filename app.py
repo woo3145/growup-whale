@@ -1,12 +1,7 @@
-# 필수 라이브러리
-'''
-0. Flask : 웹서버를 시작할 수 있는 기능. app이라는 이름으로 플라스크를 시작한다
-1. render_template : html파일을 가져와서 보여준다
-'''
 import os
-from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
+from flask import Flask, render_template, request, redirect, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Integer
 from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
@@ -74,10 +69,8 @@ class User(db.Model):
 #     user = db.relationship(
 #         "User", back_populates="study_type_level", uselist=False)
 
-
 with app.app_context():
     db.create_all()
-
 
 @app.route("/")
 @jwt_required(optional=True)
@@ -102,15 +95,25 @@ def home():
     requiredExpTable = dataService.loadRequiredExp(app)
     nextRequiredExp = requiredExpTable[user_level]
 
-    percent =  (curExp / nextRequiredExp)*100
+    bit = 0
+
+    for i in range(1, int(user_level)):
+        bit += requiredExpTable[str(i)]
+
+    percent =  ((curExp - bit) / (nextRequiredExp - bit))*100
     
-    curWhale = {}   
+    curWhale = {}
     if user_level == "1":
         curWhale = whaleData[user_level]
     else:
         curWhale = whaleData[user_level][user.whale.job][0]
 
-    return render_template('main.html', user=user, whale=curWhale, percent=percent)
+    isTodayStudy = False
+
+    if user.starttime and user.starttime.date() == studyService.get_time():
+        isTodayStudy = True
+    
+    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy)
     
 
 @app.route("/signin")
