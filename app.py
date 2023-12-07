@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, dataService, jwtService
+from services import loginService, registerService, dataService, jwtService, studyService
 
 app = Flask(__name__)
 
@@ -46,7 +46,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
-    starttime = db.Column(db.Time, nullable=True)
+    starttime = db.Column(db.DateTime, nullable=True)
 
     whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
     whale = db.relationship("Whale",  back_populates="user")
@@ -103,7 +103,7 @@ def home():
     requiredExpTable = dataService.loadRequiredExp(app)
     nextRequiredExp = requiredExpTable[user_level]
 
-    percent =  (curExp / nextRequiredExp)*100
+    percent = (curExp / nextRequiredExp)*100
     
     curWhale = {}   
     if user_level == "1":
@@ -163,12 +163,34 @@ def register():
         
         return make_response(res)
 
+
 @app.route("/study")
 def study():
-    studyType = request.args.get("study_type")
-    print(studyType)
 
+    # email 받아오기
+    cookie = request.cookies.get("access_token")
+    if not cookie:
+        return redirect("/signin")
+    
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
+
+    # 유저의 id 받아오기
+    user = db.session.query(User).filter_by(email=user_email).first()
+
+    # 스터디 타입 받아오기
+    studyType = request.args.get("study_type")
+
+    # 레벨별 경험치 담은 변수 생성
+    nextRequiredExp = dataService.loadRequiredExp(app)[str(user.whale.level)]
+
+    # studycheck함수로 넘겨줌
+    studyService.studyCheck(db, User, nextRequiredExp, studyType, user_email)
+    
     return redirect("/")
+
 
 
 @app.route("/logout")
