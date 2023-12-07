@@ -339,7 +339,7 @@
             const pw_check = document.getElementById("r_password_check").value;
 
             // 입력값이 비어 있는지 확인
-            if (!email || !pw) {
+            if (!email || !pw || !nickname) {
                 // 팝업 창으로 오류 메시지 표시
                 alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
                 return;
@@ -375,9 +375,9 @@
                     throw new Error(data.message);
                 } 
                 
-                alert('로그인 되었습니다. 메인 페이지로 이동합니다.');
+                alert('회원가입이 되었습니다. 메인 페이지로 이동합니다.');
 
-                window.location.href = "/"
+                window.location.href = "/signin"
             })
             .catch((error) => {
                 // 팝업 창으로 오류 메시지 표시
