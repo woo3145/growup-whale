@@ -126,6 +126,7 @@ def renderSiginin():
         return render_template("signin.html")
 
 @app.route("/login", methods=['POST'])
+@app.route("/login", methods=['POST'])
 def login():
     if request.method != "POST":
         return jsonify(message='Method not allowed'), 405
