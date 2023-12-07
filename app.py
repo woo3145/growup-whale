@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, dataService, studyService, jwtService
+from services import loginService, registerService, dataService, jwtService, studyService
 
 app = Flask(__name__)
 
@@ -46,7 +46,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
-    starttime = db.Column(db.Time, nullable=True)
+    starttime = db.Column(db.Date, nullable=True)
 
     whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
     whale = db.relationship("Whale",  back_populates="user")
@@ -160,19 +160,16 @@ def study():
 
     # email 받아오기
     cookie = request.cookies.get("access_token")
-    email =''
+    if not cookie:
+        return redirect("/signin")
     
-    if cookie :
-        email = jwtService.get_email.from_cookie(cookie)
-        if email :
-            email = email
-        else :
-            return "Error decoding token"
-    else :
-        return "No token found"
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
 
     # 유저의 id 받아오기
-    user = db.session.query(User).filter_by(email=email).first()
+    user = db.session.query(User).filter_by(email=user_email).first()
     user_id = user.id
 
     # 스터디 타입 받아오기
@@ -181,12 +178,9 @@ def study():
     # 레벨별 경험치 담은 변수 생성
     required_exp = dataService.loadRequiredExp(app)
     whaleData = dataService.loadWhaleData(app)
-    prevLevel = user.whale.level
-    nextRequiredExp = required_exp[user.whale.level]
-    print(prevLevel, nextRequiredExp)
 
     # studycheck함수로 넘겨줌
-    studyService.studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType)
+    studyService.studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType, user_email)
     
     return redirect("/")
     #return render_template('main.html', user=user, whale=whaleData["0"])
