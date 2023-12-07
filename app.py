@@ -131,10 +131,9 @@ def login():
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
-    if request.method == 'GET':
-        return render_template('register.html') 
+
     
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json(silent=True)
         nickname = data.get('nickname')
         email = data.get('email')
@@ -142,7 +141,6 @@ def register():
         password_check = data.get('pw_check')
 
         res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
-        
         
         return make_response(res)
 
