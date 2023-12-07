@@ -84,17 +84,25 @@ with app.app_context():
 @jwt_required(optional=True)
 def home():
     cookie = request.cookies.get("access_token")
-    print(cookie)
     if not cookie:
         return redirect("/signin")
+    
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
 
-    # if not current_identity:
-    #     return render_template('signin.html')
-    
-    user = db.session.query(User).filter_by(email="test@test").first()
+    user = db.session.query(User).filter_by(email=user_email).first()
     whaleData = dataService.loadWhaleData(app)
-    
-    return render_template('main.html', user=user, whale=whaleData["0"])
+
+    user_level = str(user.whale.level)
+    curWhale = {}
+    if user_level == "1":
+        curWhale = whaleData[user_level]
+    else:
+        curWhale = whaleData[user_level][user.whale.job][0]
+
+    return render_template('main.html', user=user, whale=curWhale)
     
 
 @app.route("/signin")
