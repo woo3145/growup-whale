@@ -9,6 +9,8 @@ from services import loginService, registerService, dataService, jwtService, stu
 
 app = Flask(__name__)
 
+current_url = request.url
+
 # DB
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -114,7 +116,7 @@ def home():
     if user.starttime and user.starttime.date() == studyService.get_time():
         isTodayStudy = True
     
-    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy)
+    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy, current_url=current_url)
     
 
 @app.route("/signin")
