@@ -28,6 +28,12 @@
                 "name": "꼬맹쓰고래",
                 "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs1.png"
             }
+        ],
+        "workout": [
+            {
+                "name": "헬린이고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout1.png"
+            }
         ]
     },
     "3": {
@@ -53,6 +59,12 @@
             {
                 "name": "꼬마고래",
                 "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs2.png"
+            }
+        ],
+        "workout": [
+            {
+                "name": "파워고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout2.png"
             }
         ]
     },
@@ -80,7 +92,14 @@
                 "name": "덕후고래",
                 "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs3.png"
             }
+        ],
+        "workout": [
+            {
+                "name": "스윗고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout3.png"
+            }
         ]
+
     },
     "5": {
         "blog": [
@@ -106,6 +125,13 @@
                 "name": "장인고래",
                 "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs4.png"
             }
+        ],
+        "workout": [
+            {
+                "name": "찰스고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout4.png"
+            }
         ]
+
     }
 }

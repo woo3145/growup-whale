@@ -65,6 +65,7 @@ class Studytypelevel(db.Model):
     argorithm_lv = db.Column(db.Integer, nullable=True)
     main_lv = db.Column(db.Integer, nullable=True)
     cs_lv = db.Column(db.Integer, nullable=True)
+    workout_lv = db.Column(db.Integer, nullable=True)
 
     user = db.relationship(
         "User", back_populates="study_type_level", uselist=False)
@@ -146,10 +147,6 @@ def login():
         return make_response(login_result)
 
         
-    
-    
-
-
 @app.route("/register", methods=['POST'])
 def register():
     if request.method == 'POST':
@@ -157,10 +154,9 @@ def register():
         nickname = data.get('nickname')
         email = data.get('email')
         password = data.get('pw')
-        password_check = data.get('pw_check')
 
-        res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
-        
+        res = registerService.register(db, email, password, nickname, User,Whale,Studytypelevel)
+        print(res)
         return make_response(res)
 
 
