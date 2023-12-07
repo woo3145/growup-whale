@@ -149,9 +149,7 @@ def study():
     print(studyType)
 
     
-
-    response = make_response(render_template('main.html'))
-    return response
+    return redirect("/")
 
 
 if __name__ == "__main__":
