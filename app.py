@@ -120,7 +120,11 @@ def home():
 
 @app.route("/signin")
 def renderSiginin():
-    return render_template("signin.html")
+    cookie = request.cookies.get("access_token")
+    if cookie :
+        return redirect("/")
+    else:
+        return render_template("signin.html")
 
 @app.route("/login", methods=['POST'])
 def login():
