@@ -103,7 +103,7 @@ def home():
     requiredExpTable = dataService.loadRequiredExp(app)
     nextRequiredExp = requiredExpTable[user_level]
 
-    percent = (curExp / nextRequiredExp)*100
+    percent =  (curExp / nextRequiredExp)*100
     
     curWhale = {}   
     if user_level == "1":
@@ -146,6 +146,8 @@ def login():
 
     else:
         return jsonify(message='Method not allowed'), 405
+    
+    
 
 
 @app.route("/register", methods=['POST', 'GET'])
