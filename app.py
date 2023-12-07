@@ -146,6 +146,8 @@ def login():
 
     else:
         return jsonify(message='Method not allowed'), 405
+    
+    
 
 
 @app.route("/register", methods=['POST', 'GET'])

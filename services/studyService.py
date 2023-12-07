@@ -11,7 +11,7 @@ def studyCheck(db, User, required_exp, studyType, user_email) :
     user_id = user_list.id
 
     # 한 번만 클릭 할 수 있도록 제어s
-    user_date = user_list.starttime.date()
+    user_date = user_list.starttime.date() if user_list.starttime else None
     cur_time = get_time()
 
     if cur_time == user_date :

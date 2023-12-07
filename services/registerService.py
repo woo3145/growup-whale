@@ -4,7 +4,7 @@ bcrypt = Bcrypt()
 def register(db, email, password, nickname, password_check, user_class, whale_class, study_class):
     
    try:
-        new_whale = whale_class(level=1)
+        new_whale = whale_class(level=1, exp=0)
         # new_studytypelevel = study_class()
         new_studytypelevel = study_class(blog_lv=0, argorithm_lv=0, main_lv=0, cs_lv=0)
 
