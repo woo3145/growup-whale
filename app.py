@@ -72,6 +72,7 @@ class Studytypelevel(db.Model):
     main_lv = db.Column(db.Integer, nullable=True)
     cs_lv = db.Column(db.Integer, nullable=True)
 
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship(
         "User", back_populates="study_type_level", uselist=False)
 
@@ -88,12 +89,8 @@ def home():
 def renderSiginin():
     return render_template("signin.html")
 
-@app.route("/login", methods=['POST', 'GET'])
+@app.route("/login", methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')  # 리디렉션 대신 템플릿을 렌더링
-
-    elif request.method == 'POST':
         data = request.get_json()
         user_email = data.get('email')
         password = data.get('password')
@@ -114,9 +111,6 @@ def login():
 
         else:
             return make_response(login_result)
-
-    else:
-        return jsonify(message='Method not allowed'), 405
 
 
 @app.route("/register", methods=['POST', 'GET'])
