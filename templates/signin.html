@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>고래키우기 - 로그인</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f6f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            margin: -20px 0 50px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+
+        label {
+            margin: 15px 0;
+        }
+
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        button {
+            border-radius: 20px;
+            border: 1px solid #c4b5fd;
+            background-color: #c4b5fd;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+            margin-top: 15px;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+              0 10px 10px rgba(0,0,0,0.22);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 480px;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .sign-in-container {
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+        }
+
+        .sign-up-container {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.6s;
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+
+        .container.right-panel-active .overlay-container{
+            transform: translateX(-100%);
+        }
+
+        .overlay {
+            background: #b2a1f6;
+            background: -webkit-linear-gradient(to right, #c4b5fd, #b2a1f6);
+            background: linear-gradient(to right, #c4b5fd, #b2a1f6);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: #FFFFFF;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+
+        .container.right-panel-active .overlay-left {
+            transform: translateX(0);
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+        }
+
+        .social-container {
+            margin: 20px 0;
+        }
+
+        .social-container a {
+            border: 1px solid #DDDDDD;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            height: 40px;
+            width: 40px;
+        }
+
+        footer {
+            background-color: #222;
+            color: #fff;
+            font-size: 14px;
+            bottom: 0;
+            position: fixed;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 999;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer i {
+            color: red;
+        }
+
+        footer a {
+            color: #3c97bf;
+            text-decoration: none;
+        }
+
+        @keyframes show {
+            0%, 49.99% {
+                opacity: 0;
+                z-index: 1;
+            }
+
+            50%, 100% {
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+    </style>
+</head>
+<body data-bs-theme="dark">
+    <h2>고래 키우기 With Hanghae99</h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Sign Up</h1>
+                <span>Welcome to Hanghae99</span>
+                <input type="text" placeholder="nickname" id="r_nickname" name="r_nickname" required />
+                <input type="email" placeholder="email" id="r_email" name="r_email" required autocomplete="additional-name"/>
+                <input type="password" placeholder="password" id="r_password" name="r_password" required />
+                <input type="password" placeholder="check password" id="r_password_check" name="r_password_check" required />
+                <button type="button" onclick="submitRegister()">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1>
+                <span>Welcome to Hanghae99</span>
+                <input type="email" placeholder="email" id="l_email" name="l_email" required autocomplete="additional-name"/>
+                <input type="password" placeholder="Password" id="l_password" name="l_password" required />
+                <button type="button" onclick="submitLogin()">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                    <script>
+                      const signUpButton = document.getElementById('signUp');
+                      const signInButton = document.getElementById('signIn');
+                      const container = document.getElementById('container');
+
+                      // Sign Up 버튼 클릭 시 /register로 리다이렉트
+                      signUpButton.addEventListener('click', () => {
+                        container.classList.add("right-panel-active");
+                      });
+                      signInButton.addEventListener('click', () => {
+                        container.classList.remove("right-panel-active");
+                      });
+                      </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function submitLogin() {
+            const email = document.getElementById("l_email").value;
+            const password = document.getElementById("l_password").value;
+    
+            // 입력값이 비어 있는지 확인
+            if (!email || !password) {
+                // 팝업 창으로 오류 메시지 표시
+                alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
+                return;
+            }
+    
+            // 서버로 보낼 데이터를 객체로 만듭니다.
+            const data = {
+                email: email,
+                password: password
+            };
+    
+            // 서버로 POST 요청을 보냅니다.
+            fetch('http://127.0.0.1:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+              if (!data.success) {
+                    throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
+                } 
+                alert('로그인 되었습니다. 메인 페이지로 이동합니다.');
+
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                // 팝업 창으로 오류 메시지 표시
+                alert(error.message);
+                console.error('Error:', error);
+            });
+        }
+   
+        function submitRegister() {
+            const email = document.getElementById("r_email").value;
+            const pw = document.getElementById("r_password").value;
+            const nickname = document.getElementById("r_nickname").value;
+            const pw_check = document.getElementById("r_password_check").value;
+
+            // 입력값이 비어 있는지 확인
+            if (!email || !pw) {
+                // 팝업 창으로 오류 메시지 표시
+                alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
+                return;
+            }
+
+            if (pw !== pw_check) {
+                // 팝업 창으로 오류 메시지 표시
+                alert("패스워드를 확인해주세요.");
+                return;
+            }
+
+            // 서버로 보낼 데이터를 객체로 만듭니다.
+            const data = {
+                email: email,
+                pw: pw,
+                nickname: nickname,
+                pw_check: pw_check
+            };
+
+            // 서버로 POST 요청을 보냅니다.
+            fetch('http://127.0.0.1:5000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.message);
+                } 
+                
+                alert('로그인 되었습니다. 메인 페이지로 이동합니다.');
+
+                window.location.href = "/"
+            })
+            .catch((error) => {
+                // 팝업 창으로 오류 메시지 표시
+                alert(error.message);
+                console.error('Error:', error);
+            });
+        }
+  </script>
+</body>
+</html>
