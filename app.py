@@ -131,8 +131,6 @@ def login():
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
-
-    
     if request.method == 'POST':
         data = request.get_json(silent=True)
         nickname = data.get('nickname')
