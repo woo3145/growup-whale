@@ -120,34 +120,32 @@ def home():
 def renderSiginin():
     return render_template("signin.html")
 
-@app.route("/login", methods=['POST', 'GET'])
+@app.route("/login", methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')  # 리디렉션 대신 템플릿을 렌더링
+    if request.method != "POST":
+        return jsonify(message='Method not allowed'), 405
 
-    elif request.method == 'POST':
-        data = request.get_json()
-        user_email = data.get('email')
-        password = data.get('password')
+    data = request.get_json()
+    user_email = data.get('email')
+    password = data.get('password')
 
-        # loginService의 login 함수 호출, db 전달
-        login_result = loginService.login(db, User, user_email, password)
+    # loginService의 login 함수 호출, db 전달
+    login_result = loginService.login(db, User, user_email, password)
 
-        if login_result['success']:
-            # 토큰 생성
-            access_token = login_result['access_token']
+    if login_result['success']:
+        # 토큰 생성
+        access_token = login_result['access_token']
 
-            # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
-            response = make_response(login_result)
-            response.set_cookie('access_token', access_token, httponly=True, secure=True)
+        # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
+        response = make_response(login_result)
+        response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
-            return response
-
-        else:
-            return make_response(login_result)
+        return response
 
     else:
-        return jsonify(message='Method not allowed'), 405
+        return make_response(login_result)
+
+        
     
     
 

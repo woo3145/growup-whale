@@ -314,6 +314,15 @@
           <h4>{{ whale.name }}</h4>
         </div>
 
+        <div class="d-flex gap-2">
+            <p class="small">닉네임</p>
+            <p class="small"> {{ user.nickname }}</p>
+        </div>
+        <div class="d-flex gap-2">
+            <p class="small">이메일</p>
+            <p class="small"> {{ user.email }}</p>
+        </div>
+
         <div class="w-100 d-flex justify-content-center align-items-center py-4 gap-4">
           {{ confirmButton(endpoint="study?study_type=blog", text="블로그", icon="📝", value="blog", isTodayStudy=isTodayStudy) }}
           {{ confirmButton(endpoint="study?study_type=main", text="주특기", icon="💻", value="main", isTodayStudy=isTodayStudy) }}
