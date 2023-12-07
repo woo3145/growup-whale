@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService
+from services import loginService, registerService, dataService
 
 app = Flask(__name__)
 
@@ -81,8 +81,18 @@ with app.app_context():
 
 
 @app.route("/")
+@jwt_required(optional=True)
 def home():
-    return render_template('main.html')
+    current_identity = get_jwt_identity()
+
+    # if not current_identity:
+    #     return render_template('signin.html')
+    
+    user = db.session.query(User).filter_by(email="lcwoo3145@gmail.com").first()
+    whaleData = dataService.loadWhaleData(app)
+    
+    return render_template('main.html', user=user, whale=whaleData["0"])
+    
 
 @app.route("/signin")
 def renderSiginin():
