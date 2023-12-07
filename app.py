@@ -2,9 +2,8 @@ import os
 from flask import Flask, render_template, request, redirect, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer
-from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, jwt_required
 import secrets
 from services import loginService, registerService, dataService, jwtService, studyService
 
@@ -151,10 +150,8 @@ def login():
     
 
 
-@app.route("/register", methods=['POST', 'GET'])
+@app.route("/register", methods=['POST'])
 def register():
-
-    
     if request.method == 'POST':
         data = request.get_json(silent=True)
         nickname = data.get('nickname')
