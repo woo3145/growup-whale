@@ -26,8 +26,10 @@ def register(db, email, password, nickname, password_check, user_class, whale_cl
             study_type_level=new_studytypelevel
         )
 
-        # if db.session.query(user_class).filter_by(email=user.email).first():
-        #     return {'Success': False, 'message': "중복된 이메일입니다"}
+        if db.session.query(user_class).filter_by(email=user.email).first():
+            return {'Success': False, 'message': "중복된 이메일입니다"}
+        # elif password != password_check:
+        #     return {'Success': False, "message": "비밀번호가 일치하지 않습니다"}
 
         # if user and bcrypt.check_password_hash(user.password, password):
         #     return {'success': True}

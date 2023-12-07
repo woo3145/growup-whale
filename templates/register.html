@@ -82,15 +82,23 @@
             })
             .then(data => {
               if (!data.success) {
-                    throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
-                } 
+                     alert(data.message)
+                } else {
+                  alert('회원가입이 성공적으로 완료되었습니다. 환영합니다~');
+
+                  if(data.access_token){
+                     document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+                  } else {
+                     alert('token 안들어옴')
+                  }
+                }
                 // 서버에서의 응답을 처리합니다
                 
-                document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+                
     
                 // 이후 원하는 작업 수행 (예: 페이지 리디렉션)
                 
-                alert('환영합니다~');
+                
                 
                
             })
