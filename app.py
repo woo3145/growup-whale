@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, studyService
+from services import loginService, registerService, studyService, dataService
 
 app = Flask(__name__)
 
@@ -134,14 +134,11 @@ def register():
        
         return make_response(res)
 
-@app.route("/studyStart")
-def studyStart():
-    studyService.studyStart(db)
-    return render_template('main.html')
-
 @app.route("/studyEnd")
 def studyEnd():
-    studyService.studyEnd(db)
+    # 유저의 id를 받아와서 exp 추출 -> 
+    required_exp = dataService.loadRequiredExp(app)["2"]
+    studyService.studyEnd(db, required_exp)
     return render_template('main.html')
 
 if __name__ == "__main__":
