@@ -83,7 +83,10 @@ with app.app_context():
 @app.route("/")
 @jwt_required(optional=True)
 def home():
-    current_identity = get_jwt_identity()
+    cookie = request.cookies.get("access_token")
+    print(cookie)
+    if not cookie:
+        return redirect("/signin")
 
     # if not current_identity:
     #     return render_template('signin.html')
@@ -117,8 +120,7 @@ def login():
 
             # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
             response = make_response(login_result)
-            response.set_cookie('access_token', access_token,
-                                httponly=True, secure=True)
+            response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
             return response
 
@@ -149,9 +151,14 @@ def study():
     studyType = request.args.get("study_type")
     print(studyType)
 
-    
     return redirect("/")
 
+
+@app.route("/logout")
+def logout():
+    response = make_response(redirect("/"))
+    response.delete_cookie("access_token", "", httponly=True, secure=True)
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
