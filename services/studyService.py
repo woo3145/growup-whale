@@ -1,5 +1,6 @@
 import math
 from datetime import datetime
+from app import User
 
 TOTAL_EXP = 71280
 MAX_LEVEL = 5
@@ -36,7 +37,7 @@ def studyStart(db) :
     print("studyStart")
     
     # id 이용해서 DB(user)에 시작시간(starttime)이 비워져 있는지 확인 (if문 : 비워져 있다면 공부 시작 시키고, 채워져 있다면 현재 진행중인 공부를 중단할지 물어보기) 
-    user_list = db.user.query.filter_by(id=1).first()
+    user_list = db.session.query(User).filter_by(id=1).first()
     print(user_list)
     if user_list[0].starttime is not None :   
         print("시작 시간이 채워져있습니다. 해당 공부를 종료하고, 다른 공부를 진행?")
