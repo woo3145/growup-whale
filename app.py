@@ -122,7 +122,7 @@ def login():
 @app.route("/register", methods=['POST', 'GET'])
 def register():
     if request.method == 'GET':
-        return render_template('register.html')  # 리디렉션 대신 템플릿을 렌더링
+        return render_template('register.html') 
     
     elif request.method == 'POST':
         data = request.get_json(silent=True)
@@ -131,10 +131,9 @@ def register():
         password = data.get('pw')
         password_check = data.get('pw_check')
 
-        # pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-
         res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
-       
+        
+        
         return make_response(res)
 
 
