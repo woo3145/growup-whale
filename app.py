@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, dataService
+from services import loginService, registerService, dataService, jwtService, studyService
 
 app = Flask(__name__)
 
@@ -45,7 +45,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), nullable=False)
-    starttime = db.Column(db.Time, nullable=True)
+    starttime = db.Column(db.DateTime, nullable=True)
 
 #     whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
 #     whale = relationship("whale", back_populates="user")
@@ -82,15 +82,35 @@ with app.app_context():
 @app.route("/")
 @jwt_required(optional=True)
 def home():
-    current_identity = get_jwt_identity()
+    cookie = request.cookies.get("access_token")
+    if not cookie:
+        return redirect("/signin")
+    
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
 
-    # if not current_identity:
-    #     return render_template('signin.html')
+    user = db.session.query(User).filter_by(email=user_email).first()
     
-    user = db.session.query(User).filter_by(email="test@test").first()
+
     whaleData = dataService.loadWhaleData(app)
+
+    user_level = str(user.whale.level)
+
+    curExp = user.whale.exp
+    requiredExpTable = dataService.loadRequiredExp(app)
+    nextRequiredExp = requiredExpTable[user_level]
+
+    percent = (curExp / nextRequiredExp)*100
     
-    return render_template('main.html', user=user, whale=whaleData["0"])
+    curWhale = {}   
+    if user_level == "1":
+        curWhale = whaleData[user_level]
+    else:
+        curWhale = whaleData[user_level][user.whale.job][0]
+
+    return render_template('main.html', user=user, whale=curWhale, percent=percent)
     
 
 @app.route("/signin")
@@ -116,8 +136,7 @@ def login():
 
             # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
             response = make_response(login_result)
-            response.set_cookie('access_token', access_token,
-                                httponly=True, secure=True)
+            response.set_cookie('access_token', access_token, httponly=True, secure=True)
 
             return response
 
@@ -143,14 +162,41 @@ def register():
         
         return make_response(res)
 
+
 @app.route("/study")
 def study():
-    studyType = request.args.get("study_type")
-    print(studyType)
 
+    # email 받아오기
+    cookie = request.cookies.get("access_token")
+    if not cookie:
+        return redirect("/signin")
+    
+    user_email = jwtService.get_email_from_cookie(cookie)
+    
+    if not user_email:
+        return redirect("/signin")
+
+    # 유저의 id 받아오기
+    user = db.session.query(User).filter_by(email=user_email).first()
+
+    # 스터디 타입 받아오기
+    studyType = request.args.get("study_type")
+
+    # 레벨별 경험치 담은 변수 생성
+    nextRequiredExp = dataService.loadRequiredExp(app)[str(user.whale.level)]
+
+    # studycheck함수로 넘겨줌
+    studyService.studyCheck(db, User, nextRequiredExp, studyType, user_email)
     
     return redirect("/")
 
+
+
+@app.route("/logout")
+def logout():
+    response = make_response(redirect("/"))
+    response.delete_cookie("access_token", "", httponly=True, secure=True)
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
