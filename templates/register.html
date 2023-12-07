@@ -33,11 +33,11 @@
 
          <div>
             <label for="email">패스워드 :</label>
-            <input type="text" id="pw" name="pw" placeholder="패스워드" />
+            <input type="password" id="pw" name="pw" placeholder="패스워드"  />
          </div>
          <div>
             <label for="email">패스워드 재확인:</label>
-            <input type="text" id="pw_check" name="pw_check" placeholder="패스워드 재확인" />
+            <input type="password" id="pw_check" name="pw_check" placeholder="패스워드 재확인" />
          </div>
          <button onclick="submitForm()" type="button">가입하기</button>
       </form>
@@ -55,7 +55,7 @@
             var pw_check = document.getElementById("pw_check").value;
     
             // 입력값이 비어 있는지 확인
-            if (!email || !pw) {
+            if (!email || !pw || !nickname) {
                 // 팝업 창으로 오류 메시지 표시
                 alert("아이디 혹은 패스워드가 입력되지 않았습니다.");
                 return;
@@ -82,16 +82,23 @@
             })
             .then(data => {
               if (!data.success) {
-                    throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
-                } 
-                // 서버에서의 응답을 처리합니다.
-                console.log('Success:', data);
+                     alert(data.message)
+                } else {
+                  alert('회원가입이 성공적으로 완료되었습니다. 환영합니다~');
+
+                  if(data.access_token){
+                     document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+                  } else {
+                     alert('token 안들어옴')
+                  }
+                }
+                // 서버에서의 응답을 처리합니다
                 
-                document.cookie = 'access_token=' + data.access_token + '; Secure; HttpOnly';  // httponly 및 secure는 선택적인 보안 설정
+                
     
                 // 이후 원하는 작업 수행 (예: 페이지 리디렉션)
                 
-                alert('로그인 되었습니다. 메인 페이지로 이동합니다.');
+                
                 
                
             })
