@@ -146,10 +146,16 @@ def register():
 
 @app.route("/study")
 def study():
+
+    # if not current_identity:
+    # return render_template('signin.html')
+
+    # 유저의 id 받아오기 
+    user = db.session.query(User).filter_by(email="test@test").first()
+    whaleData = dataService.loadWhaleData(app)
+
     # 스터디 타입 받아오기
     studyType = request.args.get("study_type")
-
-    # 유저의 id를 받아와서 exp 추출 
 
     # 레벨별 경험치 담은 변수 생성
     required_exp = dataService.loadRequiredExp(app)
@@ -157,8 +163,11 @@ def study():
     # studycheck함수로 넘겨줌
     studyService.studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType)
     
-    response = make_response(render_template('main.html'))
-    return response
+
+    return redirect("/")
+    #return render_template('main.html', user=user, whale=whaleData["0"])
+    #response = make_response(render_template('main.html'))
+    #return response
 
 
 if __name__ == "__main__":

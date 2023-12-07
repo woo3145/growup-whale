@@ -13,8 +13,8 @@ def get_level(required_exp, total_exp) :
 
 def studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType) :
     print(required_exp)
-    # 유저 아이디 받아오기
-    # id = 
+    # 유저 이메일 받아오기
+    # email = 
 
     # 클릭한 버튼 찾아내기 (O)
     study_type = studyType
