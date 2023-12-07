@@ -13,14 +13,17 @@ def get_level(required_exp, total_exp) :
 
 def studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType) :
     print(required_exp)
-    # 유저 이메일 받아오기
+
+    # 유저 이메일 받아오기, id 구하기
     # email = 
+    user_list = db.session.query(User).filter_by(email='test@email.com').first()
+    user_id = user_list.id
 
     # 클릭한 버튼 찾아내기 (O)
     study_type = studyType
 
     # 해당 study_type에 경험치 추가해주기 (O ? work_out(운동하기) 버튼의 경우는 어떻게 처리)
-    studytype_list = db.session.query(Studytypelevel).filter_by(id=1).first()
+    studytype_list = db.session.query(Studytypelevel).filter_by(id=user_id).first()
     if study_type=="blog" :
         studytype_list.blog_lv = studytype_list.blog_lv + 1
     elif study_type=="main" :
@@ -33,7 +36,7 @@ def studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType) :
     db.session.commit()
 
     # study_type 중에 제일 높은 숫자를 가진걸로 job 설정, 총 경험치, 레벨 구하기
-    studytype_list = db.session.query(Studytypelevel).filter_by(id=1).first()
+    studytype_list = db.session.query(Studytypelevel).filter_by(id=user_id).first()
     data = {
         'blog_lv' : studytype_list.blog_lv,
         'algorithm_lv' : studytype_list.argorithm_lv,
@@ -45,7 +48,7 @@ def studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType) :
     level = get_level(required_exp, total_exp)
 
     # job, 경험치, 레벨 DB에 기록 (whale -> level, exp)
-    whale_list = db.session.query(Whale).filter_by(id=1).first()
+    whale_list = db.session.query(Whale).filter_by(id=user_id).first()
     whale_list.level = level
     whale_list.job = job
     whale_list.exp = total_exp
