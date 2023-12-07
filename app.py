@@ -81,8 +81,18 @@ with app.app_context():
 
 
 @app.route("/")
+@jwt_required(optional=True)
 def home():
-    return render_template('main.html')
+    current_identity = get_jwt_identity()
+
+    # if not current_identity:
+    #     return render_template('signin.html')
+    
+    user = db.session.query(User).filter_by(email="test@test").first()
+    whaleData = dataService.loadWhaleData(app)
+    
+    return render_template('main.html', user=user, whale=whaleData["0"])
+    
 
 @app.route("/signin")
 def renderSiginin():
@@ -121,10 +131,9 @@ def login():
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
-    if request.method == 'GET':
-        return render_template('register.html') 
+
     
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json(silent=True)
         nickname = data.get('nickname')
         email = data.get('email')
@@ -132,7 +141,6 @@ def register():
         password_check = data.get('pw_check')
 
         res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
-        
         
         return make_response(res)
 

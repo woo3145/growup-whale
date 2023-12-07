@@ -302,10 +302,10 @@
           </div>
             <img role="button" src="static/free-icon-settings-824700.png" alt="setting icon" class="text-white" style="width:2rem; height: 2rem;">
         </div>
-        {{ whaleCard() }} 
+        {{ whaleCard(imageUrl=whale.image_url) }} 
         <div class="d-flex align-items-center gap-4 text-lg-center py-4">
-          <h4>Lv1</h4>
-          <h4>응애고래</h4>
+          <h4>Lv {{ user.whale.level }}</h4>
+          <h4>{{ whale.name }}</h4>
         </div>
 
         <div class="w-100 d-flex justify-content-center align-items-center py-4 gap-4">
