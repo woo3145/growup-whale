@@ -146,12 +146,12 @@ def studyCheck():
         print(studyType)
         # 유저의 id를 받아와서 exp 추출 
 
-        # 레벨별 경험치 담은 변수 생성
-        required_exp = dataService.loadRequiredExp(app)
+    # 레벨별 경험치 담은 변수 생성
+    required_exp = dataService.loadRequiredExp(app)
 
-        # studycheck함수로 넘겨줌
-        studyService.studyCheck(db, required_exp)
-        return render_template('main.html')
+    # studycheck함수로 넘겨줌
+    studyService.studyCheck(db, required_exp)
+    return render_template('main.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
