@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import secrets
-from services import loginService, registerService, studyService, dataService
+from services import loginService, registerService, dataService, studyService
 
 app = Flask(__name__)
 
@@ -134,12 +134,22 @@ def register():
        
         return make_response(res)
 
-@app.route("/studyEnd")
-def studyEnd():
-    # 유저의 id를 받아와서 exp 추출 -> 
-    required_exp = dataService.loadRequiredExp(app)["2"]
-    studyService.studyEnd(db, required_exp)
-    return render_template('main.html')
+
+@app.route("/studyCheck", methods=['POST'])
+def studyCheck(): 
+    if request.method == 'POST' :
+        print("studycheck연결")
+        # 스터디 타입 받아오기
+        studyType = request.form.get('text')
+        print(studyType)
+        # 유저의 id를 받아와서 exp 추출 
+
+        # 레벨별 경험치 담은 변수 생성
+        required_exp = dataService.loadRequiredExp(app)
+
+        # studycheck함수로 넘겨줌
+        studyService.studyCheck(db, required_exp)
+        return render_template('main.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
