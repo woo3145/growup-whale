@@ -322,7 +322,6 @@
                     throw new Error('아이디 혹은 패스워드가 일치하지 않습니다.');
                 } 
                 alert('로그인 되었습니다. 메인 페이지로 이동합니다.');  
-                setCookie("access_token", data.access_token)
                 window.location.href = "/";
             })
             .catch((error) => {

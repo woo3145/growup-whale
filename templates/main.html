@@ -300,7 +300,13 @@
           <div class="progress w-100"  role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar" style="width: 50%"></div>
           </div>
-            <img role="button" src="static/free-icon-settings-824700.png" alt="setting icon" class="text-white" style="width:2rem; height: 2rem;">
+          <div class="dropdown show">
+            <img id="dropdownMenuLink" data-toggle="dropdown" role="button" src="static/free-icon-settings-824700.png" alt="setting icon" class="text-white" style="width:2rem; height: 2rem;">
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a href="/logout" class="dropdown-item">로그아웃</a>
+            </div>
+          </div>
         </div>
         {{ whaleCard(imageUrl=whale.image_url) }} 
         <div class="d-flex align-items-center gap-4 text-lg-center py-4">
