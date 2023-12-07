@@ -10,11 +10,12 @@
                     <div class="modal-header">{{ icon }} {{ text }}</div>
                     <div class="modal-body">하루에 한번만 누를 수 있어요.</div>
                     <div class="modal-footer">
-                        <form action="{{ endpoint }}" method="post">
-                            <input class="visually-hidden" type="text" name="study_type" value="{{ value }}">
-                            <button type="submit" class="btn btn-primary">밥주기</button>
+                        <div>
+                            <a href="{{ endpoint }}">
+                                <button type="button" class="btn btn-primary">밥주기</button>
+                            </a>
                             <button class="btn btn-default" data-dismiss="modal">취소</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

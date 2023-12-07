@@ -136,6 +136,16 @@ def register():
         
         return make_response(res)
 
+@app.route("/study")
+def study():
+    studyType = request.args.get("study_type")
+    print(studyType)
+
+    
+
+    response = make_response(render_template('main.html'))
+    return response
+
 
 @app.route("/studyCheck", methods=['POST'])
 def studyCheck(): 
