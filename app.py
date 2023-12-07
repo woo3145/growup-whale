@@ -9,8 +9,6 @@ from services import loginService, registerService, dataService, jwtService, stu
 
 app = Flask(__name__)
 
-current_url = request.url
-
 # DB
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -78,6 +76,7 @@ with app.app_context():
 @app.route("/")
 @jwt_required(optional=True)
 def home():
+    current_url = request.url
     cookie = request.cookies.get("access_token")
     if not cookie:
         return redirect("/signin")
