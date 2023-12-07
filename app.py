@@ -32,7 +32,6 @@ jwt = JWTManager(app)
 
 
 db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
 
 
 class User(db.Model):
@@ -42,21 +41,20 @@ class User(db.Model):
     nickname = db.Column(db.String(100), nullable=False)
     starttime = db.Column(db.DateTime, nullable=True)
 
-    whale_id = db.Column(Integer, db.ForeignKey("whale.id"))
-    whale = db.relationship("Whale",  back_populates="user")
+#     whale_id = db.Column(db.Integer, db.ForeignKey("whale.id"))
+#     whale = relationship("whale", back_populates="user")
+#     study_type_level_id = db.Column(
+#         db.Integer, db.ForeignKey("studytypelevel.id"))
+#     study_type_level = relationship("studytypelevel", back_populates="user")
 
-    study_type_level_id = db.Column(
-        Integer, db.ForeignKey("studytypelevel.id"))
-    study_type_level = db.relationship("Studytypelevel", back_populates="user")
 
+# class Whale(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     level = db.Column(db.Integer, nullable=False)
+#     job = db.Column(db.String(100), nullable=True)
+#     exp = db.Column(db.Integer, nullable=True)
 
-class Whale(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    level = db.Column(db.Integer, nullable=False)
-    job = db.Column(db.String(100), nullable=True)
-    exp = db.Column(db.Integer, nullable=True)
-
-    user = db.relationship("User", back_populates="whale", uselist=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 
 class Studytypelevel(db.Model):
@@ -67,8 +65,9 @@ class Studytypelevel(db.Model):
     cs_lv = db.Column(db.Integer, nullable=True)
     workout_lv = db.Column(db.Integer, nullable=True)
 
-    user = db.relationship(
-        "User", back_populates="study_type_level", uselist=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+#     user = db.relationship(
+#         "User", back_populates="study_type_level", uselist=False)
 
 with app.app_context():
     db.create_all()
