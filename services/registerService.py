@@ -5,7 +5,8 @@ def register(db, email, password, nickname, password_check, user_class, whale_cl
     
    try:
         new_whale = whale_class(level=1)
-        new_studytypelevel = study_class()
+        # new_studytypelevel = study_class()
+        new_studytypelevel = study_class(blog_lv=0, argorithm_lv=0, main_lv=0, cs_lv=0)
 
         hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
         hashed_pw_check = bcrypt.generate_password_hash(password_check).decode('utf-8')
