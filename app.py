@@ -93,16 +93,25 @@ def home():
         return redirect("/signin")
 
     user = db.session.query(User).filter_by(email=user_email).first()
+    
+
     whaleData = dataService.loadWhaleData(app)
 
     user_level = str(user.whale.level)
-    curWhale = {}
+
+    curExp = user.whale.exp
+    requiredExpTable = dataService.loadRequiredExp(app)
+    nextRequiredExp = requiredExpTable[user_level]
+
+    percent =  (curExp / nextRequiredExp)*100
+    
+    curWhale = {}   
     if user_level == "1":
         curWhale = whaleData[user_level]
     else:
         curWhale = whaleData[user_level][user.whale.job][0]
 
-    return render_template('main.html', user=user, whale=curWhale)
+    return render_template('main.html', user=user, whale=curWhale, percent=percent)
     
 
 @app.route("/signin")
