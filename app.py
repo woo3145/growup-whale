@@ -138,30 +138,20 @@ def register():
 
 @app.route("/study")
 def study():
+    # 스터디 타입 받아오기
     studyType = request.args.get("study_type")
-    print(studyType)
 
-    
-
-    response = make_response(render_template('main.html'))
-    return response
-
-
-@app.route("/studyCheck", methods=['POST'])
-def studyCheck(): 
-    if request.method == 'POST' :
-        print("studycheck연결")
-        # 스터디 타입 받아오기
-        studyType = request.form.get('text')
-        print(studyType)
-        # 유저의 id를 받아와서 exp 추출 
+    # 유저의 id를 받아와서 exp 추출 
 
     # 레벨별 경험치 담은 변수 생성
     required_exp = dataService.loadRequiredExp(app)
 
     # studycheck함수로 넘겨줌
-    studyService.studyCheck(db, required_exp)
-    return render_template('main.html')
+    studyService.studyCheck(db, User, Whale, Studytypelevel, required_exp, studyType)
+    
+    response = make_response(render_template('main.html'))
+    return response
+
 
 if __name__ == "__main__":
     app.run(debug=True)
