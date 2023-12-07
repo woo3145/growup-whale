@@ -274,6 +274,22 @@
             width: 100%;
         }
 
+        .board {
+            width:100%;
+        }
+
+        @media (min-width: 992px) { 
+            .board {
+                width:60%;
+            }
+        }
+        @media (min-width: 1200px) { 
+            .board {
+                width:50%;
+            }
+         }
+
+
     </style>
 
     <script>
@@ -294,7 +310,7 @@
      {% endblock %} 
     {% block content %}
     <div class="h-100 d-flex flex-column justify-content-center align-items-center">
-      <div class="h-75 w-50 d-flex flex-column justify-content-center align-items-center">
+      <div class="h-75 board d-flex flex-column justify-content-center align-items-center">
         <div class="w-100 d-flex justify-content-between align-items-center gap-4">
           <img role="button" src="static/free-icon-ranking-1603847.png" alt="setting icon" class="text-white" style="width:2rem; height: 2rem;">
           <div class="progress w-100"  role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
@@ -308,7 +324,9 @@
             </div>
           </div>
         </div>
-        {{ whaleCard(imageUrl=whale.image_url) }} 
+        <div class="py-lg-3">
+            {{ whaleCard(imageUrl=whale.image_url) }} 
+        </div>
         <div class="d-flex align-items-center gap-4 text-lg-center py-4">
           <h4>Lv {{ user.whale.level }}</h4>
           <h4>{{ whale.name }}</h4>
@@ -323,7 +341,7 @@
             <p class="small"> {{ user.email }}</p>
         </div>
 
-        <div class="w-100 d-flex justify-content-center align-items-center py-4 gap-4">
+        <div class="w-100 flex-wrap d-flex justify-content-center align-items-center py-4 gap-4">
           {{ confirmButton(endpoint="study?study_type=blog", text="블로그", icon="📝", value="blog", isTodayStudy=isTodayStudy) }}
           {{ confirmButton(endpoint="study?study_type=main", text="주특기", icon="💻", value="main", isTodayStudy=isTodayStudy) }}
           {{ confirmButton(endpoint="study?study_type=argorithm", text="알고리즘", icon="🤢", value="argorithm", isTodayStudy=isTodayStudy) }}
