@@ -4,9 +4,7 @@
 ## v1.0.0
 
 <p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Thumbnail" src="./_github/thumbnail.png" width="100%" />
-  </a>
+  <img alt="Thumbnail" src="./_github/thumbnail.png" width="100%" />
 </p>
 <h1 align="center">🐳 고래 키우기</h1>
 <h4>항해99 18기 5조 미니프로젝트</h4>
