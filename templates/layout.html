@@ -13,9 +13,14 @@
     {% endblock %}
   </head>
   <body style="height:100vh" >
-    
-    <div class="container-fluid h-100">
+    <div class="container-fluid h-100 overflow-hidden">
         <div id="content" class="container-sm h-100">{% block content %}{% endblock %}</div>
     </div>
   </body>
+
+  <script>
+    function onClickRanking() {
+      window.alert("아직 못보지롱");
+    }
+  </script>
 </html>

@@ -8,25 +8,31 @@
         "blog": [
             {
                 "name": "뉴비고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog1.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog1_9f52bad62.png"
             }
         ],
         "algorithm": [
             {
                 "name": "우왕고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al1.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al1cdb1e14.png"
             }
         ],
         "main": [
             {
                 "name": "닌자고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main1.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main173ab53e6.png"
             }
         ],
         "cs": [
             {
                 "name": "꼬맹쓰고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs1.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs1eb407ed692.png"
+            }
+        ],
+        "workout": [
+            {
+                "name": "헬린이고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout1168a9db.png"
             }
         ]
     },
@@ -34,25 +40,31 @@
         "blog": [
             {
                 "name": "룰루고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog2.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog216f361f4.png"
             }
         ],
         "algorithm": [
             {
                 "name": "퍼즐킹고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al2.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al2ba5fdf2d1.png"
             }
         ],
         "main": [
             {
                 "name": "고단백고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main2.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main22eb407e.png"
             }
         ],
         "cs": [
             {
                 "name": "꼬마고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs2.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs20c4ae0a6.png"
+            }
+        ],
+        "workout": [
+            {
+                "name": "파워고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout2972d6d625.png"
             }
         ]
     },
@@ -60,52 +72,66 @@
         "blog": [
             {
                 "name": "문지기고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog3.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog345deaa8.png"
             }
         ],
         "algorithm": [
             {
                 "name": "고래고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al3.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al3a6be3e489.png"
             }
         ],
         "main": [
             {
                 "name": "쇼미더고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main3.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main3d7e6342.png"
             }
         ],
         "cs": [
             {
                 "name": "덕후고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs3.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs31a850396.png"
+            }
+        ],
+        "workout": [
+            {
+                "name": "스윗고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout3d2d41582.png"
             }
         ]
+
     },
     "5": {
         "blog": [
             {
                 "name": "전사고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog4.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/blog446f9634f.png"
             }
         ],
         "algorithm": [
             {
                 "name": "코드마스터",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al4.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/al4a14103.png"
             }
         ],
         "main": [
             {
                 "name": "레전드고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main4.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/main4ee7df3d7.png"
             }
         ],
         "cs": [
             {
                 "name": "장인고래",
-                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs4.png"
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/cs43421972.png"
+            }
+        ],
+        "workout": [
+            {
+                "name": "찰스고래",
+                "image_url": "https://growup-whale.s3.ap-northeast-2.amazonaws.com/workout453e66571.png"
             }
         ]
+
     }
 }

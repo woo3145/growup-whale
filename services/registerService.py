@@ -1,15 +1,14 @@
 from flask_bcrypt import generate_password_hash, Bcrypt
 bcrypt = Bcrypt()
 
-def register(db, email, password, nickname, password_check, user_class, whale_class, study_class):
+def register(db, email, password, nickname, user_class, whale_class, study_class):
     
    try:
         new_whale = whale_class(level=1, exp=0)
         # new_studytypelevel = study_class()
-        new_studytypelevel = study_class(blog_lv=0, argorithm_lv=0, main_lv=0, cs_lv=0)
+        new_studytypelevel = study_class(blog_lv=0, argorithm_lv=0, main_lv=0, cs_lv=0, workout_lv=0)
 
         hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
-        hashed_pw_check = bcrypt.generate_password_hash(password_check).decode('utf-8')
 
         user = user_class(
             email=email, 

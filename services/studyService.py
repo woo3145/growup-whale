@@ -34,6 +34,8 @@ def studyCheck(db, User, required_exp, studyType, user_email) :
         studytype_list.argorithm_lv = studytype_list.argorithm_lv + 1
     elif study_type=="cs" :
         studytype_list.cs_lv = studytype_list.cs_lv + 1
+    elif study_type=="workout" :
+        studytype_list.workout_lv = studytype_list.workout_lv + 1
     db.session.add(studytype_list)
     db.session.commit()
 
@@ -43,7 +45,8 @@ def studyCheck(db, User, required_exp, studyType, user_email) :
         'blog' : studytype_list.blog_lv,
         'algorithm' : studytype_list.argorithm_lv,
         'main' : studytype_list.main_lv,
-        'cs' : studytype_list.cs_lv
+        'cs' : studytype_list.cs_lv,
+        'workout' : studytype_list.workout_lv
     }
     job = max(data, key=data.get)
     curExp = 0 if not user_list.whale.exp else user_list.whale.exp

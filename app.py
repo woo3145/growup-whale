@@ -2,9 +2,8 @@ import os
 from flask import Flask, render_template, request, redirect, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer
-from sqlalchemy.orm import relationship
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, jwt_required
 import secrets
 from services import loginService, registerService, dataService, jwtService, studyService
 
@@ -66,6 +65,7 @@ class Studytypelevel(db.Model):
     argorithm_lv = db.Column(db.Integer, nullable=True)
     main_lv = db.Column(db.Integer, nullable=True)
     cs_lv = db.Column(db.Integer, nullable=True)
+    workout_lv = db.Column(db.Integer, nullable=True)
 
     user = db.relationship(
         "User", back_populates="study_type_level", uselist=False)
@@ -76,6 +76,7 @@ with app.app_context():
 @app.route("/")
 @jwt_required(optional=True)
 def home():
+    current_url = request.url
     cookie = request.cookies.get("access_token")
     if not cookie:
         return redirect("/signin")
@@ -114,12 +115,17 @@ def home():
     if user.starttime and user.starttime.date() == studyService.get_time():
         isTodayStudy = True
     
-    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy)
+    return render_template('main.html', user=user, whale=curWhale, percent=percent, isTodayStudy=isTodayStudy, current_url=current_url)
     
 
 @app.route("/signin")
 def renderSiginin():
-    return render_template("signin.html")
+    cookie = request.cookies.get("access_token")
+    email = jwtService.get_email_from_cookie(cookie)
+    if email :
+        return redirect("/")
+    else:
+        return render_template("signin.html")
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -147,21 +153,16 @@ def login():
         return make_response(login_result)
 
         
-    
-    
-
-
-@app.route("/register", methods=['POST', 'GET'])
+@app.route("/register", methods=['POST'])
 def register():
     if request.method == 'POST':
         data = request.get_json(silent=True)
         nickname = data.get('nickname')
         email = data.get('email')
         password = data.get('pw')
-        password_check = data.get('pw_check')
 
-        res = registerService.register(db, email, password, nickname, password_check, User,Whale,Studytypelevel)
-        
+        res = registerService.register(db, email, password, nickname, User,Whale,Studytypelevel)
+        print(res)
         return make_response(res)
 
 

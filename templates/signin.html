@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>고래키우기 - 로그인</title>
+    <link rel="shortcut icon" href="../static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
@@ -32,9 +35,15 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            padding: 0 50px;
+            padding: 1rem;
             height: 100%;
             text-align: center;
+        }
+
+        @media (min-width: 768px) { 
+            form {
+                padding: 0 50px;
+            }
         }
 
         label {
@@ -59,8 +68,14 @@
             padding: 12px 45px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            transition: transform 80ms ease-in;
+            transition: transform 2s ease-in;
             margin-top: 15px;
+            cursor:pointer;
+        }
+
+        button:hover {
+            background-color: #bbaef1;
+            border: 1px solid #bbaef1;
         }
 
         button:active {
@@ -236,39 +251,37 @@
     </style>
 </head>
 <body data-bs-theme="dark">
-    <h2>고래 키우기 With Hanghae99</h2>
+    <h2>🐳 고래 키우기 With Hanghae99</h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="#">
-                <h1>Sign Up</h1>
-                <span>Welcome to Hanghae99</span>
-                <input type="text" placeholder="nickname" id="r_nickname" name="r_nickname" required />
-                <input type="email" placeholder="email" id="r_email" name="r_email" required autocomplete="additional-name"/>
-                <input type="password" placeholder="password" id="r_password" name="r_password" required />
-                <input type="password" placeholder="check password" id="r_password_check" name="r_password_check" required />
-                <button type="button" onclick="submitRegister()">Sign Up</button>
+                <h1>회원가입</h1>
+                <input type="text" placeholder="닉네임" id="r_nickname" name="r_nickname" required />
+                <input type="email" placeholder="이메일" id="r_email" name="r_email" required autocomplete="additional-name"/>
+                <input type="password" placeholder="패스워드" id="r_password" name="r_password" required />
+                <input type="password" placeholder="패스워드 확인" id="r_password_check" name="r_password_check" required />
+                <button type="button" onclick="submitRegister()">회원가입</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form action="#">
-                <h1>Sign in</h1>
-                <span>Welcome to Hanghae99</span>
-                <input type="email" placeholder="email" id="l_email" name="l_email" required autocomplete="additional-name"/>
-                <input type="password" placeholder="Password" id="l_password" name="l_password" required />
-                <button type="button" onclick="submitLogin()">Sign In</button>
+                <h1>로그인</h1>
+                <input type="email" placeholder="이메일" id="l_email" name="l_email" required autocomplete="additional-name"/>
+                <input type="password" placeholder="패스워드" id="l_password" name="l_password" required />
+                <button type="button" onclick="submitLogin()">로그인</button>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn">Sign In</button>
+                    <h1>당신의 최종진화는..?</h1>
+                    <img style="width:100%" src="https://growup-whale.s3.ap-northeast-2.amazonaws.com/register.png" alt="gg">
+                    <button class="ghost" id="signIn">로그인</button>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <button class="ghost" id="signUp">Sign Up</button>
+                    <h1>고래를 키워보세요!</h1>
+                    <img style="width:100%" src="https://growup-whale.s3.ap-northeast-2.amazonaws.com/login.png" alt="gg">
+                    <button class="ghost" id="signUp">회원가입</button>
                     <script>
                       const signUpButton = document.getElementById('signUp');
                       const signInButton = document.getElementById('signIn');
@@ -307,7 +320,7 @@
             };
     
             // 서버로 POST 요청을 보냅니다.
-            fetch('http://127.0.0.1:5000/login', {
+            fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -359,12 +372,11 @@
             const data = {
                 email: email,
                 pw: pw,
-                nickname: nickname,
-                pw_check: pw_check
+                nickname: nickname
             };
 
             // 서버로 POST 요청을 보냅니다.
-            fetch('http://127.0.0.1:5000/register', {
+            fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
