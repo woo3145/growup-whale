@@ -15,7 +15,8 @@
 ## 💻 preview
 배포주소 : woo3145.pythonanywhere.com
 
-<iframe width="100%" height="auto" src="https://www.youtube.com/embed/D-ZuqNl9Zzk" title="토이 프로젝트 고래 키우기 시연 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[고래키우기 시연 영상](https://youtu.be/D-ZuqNl9Zzk) 
+
 
 ## 👨‍👨‍👧‍👦 팀원
 - [김기민](https://github.com/js1171) - 회원가입
