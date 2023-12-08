@@ -9,3 +9,4 @@ docs/_build/
 dist/
 .venv/
 database.db
+Project.zip
