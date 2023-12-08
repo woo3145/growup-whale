@@ -120,7 +120,12 @@ def home():
 @app.route("/signin")
 def renderSiginin():
     cookie = request.cookies.get("access_token")
+<<<<<<< HEAD
     if cookie :
+=======
+    email = jwtService.get_email_from_cookie(cookie)
+    if email :
+>>>>>>> main
         return redirect("/")
     else:
         return render_template("signin.html")
