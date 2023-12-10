@@ -6,6 +6,8 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, jwt_required
 import secrets
 from services import loginService, registerService, dataService, jwtService, studyService
+from datetime import timedelta
+
 
 app = Flask(__name__)
 
@@ -19,6 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] =\
 
 # JWT_SECRET_KEY가 이미 설정되어 있는지 확인
 jwt_secret_key = os.environ.get('JWT_SECRET_KEY')
+jwt_expired = timedelta(days=120)
 
 # JWT_SECRET_KEY가 없으면 새로운 키 생성
 if jwt_secret_key is None:
@@ -145,7 +148,7 @@ def login():
 
         # 리디렉션 대신 쿠키에 토큰 저장하고 메인 페이지로 리디렉션
         response = make_response(login_result)
-        response.set_cookie('access_token', access_token, httponly=True, secure=True)
+        response.set_cookie('access_token', access_token, httponly=True, secure=True, max_age=jwt_expired)
 
         return response
 
