@@ -335,13 +335,12 @@
           </div>
           <div class="dropdown show">
             <img id="dropdownMenuLink" data-toggle="dropdown" role="button" src="static/free-icon-settings-824700.png" alt="setting icon" class="text-white" style="width:2rem; height: 2rem;">
-            
+          
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a href="https://www.notion.so/189d8ed0848d44c9b3a0718127f13b02" class="dropdown-item" target="_blank">개발일지로 이동하기!</a>
+                <a href="https://naraspc.notion.site/naraspc/189d8ed0848d44c9b3a0718127f13b02" class="dropdown-item" target="_blank">개발일지로 이동하기!</a>
                 <a href="/logout" class="dropdown-item">로그아웃</a>
               
             </div>
-            
           </div>
         </div>
         <div class="py-lg-3">
@@ -367,11 +366,9 @@
           {{ confirmButton(endpoint="study?study_type=argorithm", text="알고리즘", icon="🤢", value="argorithm", isTodayStudy=isTodayStudy) }}
           {{ confirmButton(endpoint="study?study_type=cs", text="CS지식", icon="🛠️", value="cs", isTodayStudy=isTodayStudy) }}
           {{ confirmButton(endpoint="study?study_type=workout", text="운동하기", icon="💪", value="workout", isTodayStudy=isTodayStudy) }}
-        
         </div>
         {% if isTodayStudy %} <p class="small text-black-50">이미 오늘 클릭했어요. (오전 9시 초기화)</p> {% endif %}
         <p class="small text-black-50">오늘 집중 할 한가지 선택하기!</p>
-        
       </div>
 
     </div>

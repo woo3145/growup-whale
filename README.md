@@ -1,6 +1,4 @@
-# 
-
-
+## v1.0.1
 ## v1.0.0
 
 <p align="center">
@@ -11,20 +9,35 @@
 매일매일 고래에게 ‘공부’ 먹이를 주고, 항해 99일간 키우면 성장 완료!
 
 ## 💻 preview
-배포주소 :[woo3145.pythonanywhere.com](https://woo3145.pythonanywhere.com)  
+배포주소 :[woo3145.pythonanywhere.com](https://woo3145.pythonanywhere.com/)  
 
 [고래키우기 시연 영상](https://youtu.be/D-ZuqNl9Zzk) 
 
-
 ## 👨‍👨‍👧‍👦 팀원
 - [김기민](https://github.com/js1171) - 회원가입
-- [김진욱](https://github.com/naraspc) - JWT, 로그인 구현
+- [김진욱](https://github.com/naraspc) - JWT, 로그인 구현, 보안
 - [이지선](https://github.com/js1171) - 메인로직
 - [이창우](https://github.com/woo3145) - 프로젝트 총괄 관리, 메인페이지
 
 ## 기능
-
 <details>
+<summary>실제 비밀번호를 사용해도 괜찮을까?</summary>
+<aside>
+❓ 미니 프로젝트에 제 실제 비밀번호를 사용해도 괜찮을까요?
+
+</aside>
+
+**⇒ 안심하고 사용해도 괜찮습니다!**
+
+- SQLAlchemy라는 ORM을 사용해 DB와 통신함으로써 SQL Injection에 대해 대비
+- 암호화 알고리즘을 적용해 PW DB에 저장
+    - DB에 저장되는 PW는 암호화된 값이므로, **PW찾기 기능은 지원하지않습니다.**
+- 블라인드 SQL 인젝션, 유니온 베이스 인젝션, 에러 베이스 인젝션 테스트 완료
+- 어드민 권한 탈취를 방지하기 위해 프로젝트 기능상 필요없는 권한은 구현하지 않았습니다.
+</details>
+  
+<details>
+  
 <summary>고래의 밥!</summary>
 
 <img alt="Thumbnail" src="./_github/feature1.png" width="100%" />
